@@ -12,4 +12,4 @@ import Foundation
 //}
 
 
-var base_server_uri = "http://localhost:8080/"
+var base_server_uri = "http://localhost:8080/api/"

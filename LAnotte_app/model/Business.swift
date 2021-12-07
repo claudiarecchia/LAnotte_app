@@ -2,31 +2,26 @@
 //  Business.swift
 //  LAnotte_app
 //
-//  Created by Claudia Recchia on 05/12/21.
+//  Created by Claudia Recchia on 06/12/21.
 //
 
 import Foundation
 
-class Business{
+struct Business: Identifiable, Codable {
     
-    var id: Int
-    var business_name: String
-    var VAT_number: Int
-    var description: String
-    var image: Data
-    var location: String
-    var rating: Double
-    var products: Array<Product>
+    let id: String
+    let business_name: String
+    let VAT_number: String
+    let description: String
+    let image: String
+    let location: String
+    let rating: Double
+    let products: [Product]
     
-    init(id: Int, business_name: String, VAT_number: Int, description: String, image: Data, location: String, rating: Double, products: Array<Product>) {
-        self.id = id
-        self.business_name = business_name
-        self.VAT_number = VAT_number
-        self.description = description
-        self.image = image
-        self.location = location
-        self.rating = rating
-        self.products = products
-    }
+    static let defaultBusiness = Business(id: "", business_name: "", VAT_number: "", description: "", image: "", location: "", rating: 0, products: [] )
     
+}
+
+struct BusinessResponse: Codable{
+    let request: [Business]
 }
