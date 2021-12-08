@@ -12,7 +12,6 @@ struct LocaliView: View {
     @StateObject private var localiViewModel = LocaliViewModel()
     
     var body: some View {
-        NavigationView{
             List(localiViewModel.businesses, id: \.id) { item in
                 NavigationLink(destination: BusinessDetailView(business: item), label: {
                     VStack(alignment: .leading) {
@@ -25,12 +24,10 @@ struct LocaliView: View {
                 })
             }.onAppear {
                 localiViewModel.loadData(path: "allBusinesses", method: "GET")
+				UITableView.appearance().contentInset.top = -25
             }
-            
             .hiddenNavigationBarStyle()
         }
-        
-    }
 }
 
 
@@ -39,5 +36,7 @@ struct LocaliView_Previews: PreviewProvider {
         LocaliView()
     }
 }
+
+
 
 

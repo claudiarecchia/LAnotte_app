@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct LAnotte_appApp: App {
+    
+    @StateObject var order = Order()
+    
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            MainTabView()
+                .environmentObject(order)
         }
     }
 }
