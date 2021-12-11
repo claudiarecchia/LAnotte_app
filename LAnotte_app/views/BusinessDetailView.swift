@@ -9,9 +9,8 @@ import SwiftUI
 
 struct BusinessDetailView: View {
 	
-	var business: Business
-	@State private var number = 0
 	@EnvironmentObject var order: Order
+	@State var business: Business = Business.defaultBusiness
 	
 	var body: some View {
 		NavigationView{
@@ -67,17 +66,16 @@ struct BusinessDetailView: View {
 							Text("Aggiunti all'ordine: \(order.getQuantityProductInOrder(product: item)) ")
 						} onIncrement: {
 							order.addProduct(product: item, product_business: business)
+							
 						} onDecrement: {
 							order.removeProduct(product: item)
 						}
 					}
 				}
 			}.hiddenNavigationBarStyle()
-				//.edgesIgnoringSafeArea(.top)
-//			.onAppear (perform: {
-//				UITableView.appearance().contentInset.top = -35
-//			})
+				
 		}
+		
 	}
 }
 

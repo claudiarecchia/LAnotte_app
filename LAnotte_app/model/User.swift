@@ -6,17 +6,23 @@
 //
 
 import Foundation
-import CoreVideo
 
-class User{
+class User: Codable, Identifiable {
     
-    var id: Int
-    var email: String
-    var password: String
+    var id: String?
+    var email: String?
+    var password: String?
     
-    init(id: Int, email: String, password: String){
+    init(id: String, email: String, password: String){
         self.id = id
         self.email = email
         self.password = password
     }
+	
+	// if user is a guest (not logged)
+	init(id: String){
+		self.id = id
+	}
+	
+	init(){ }
 }

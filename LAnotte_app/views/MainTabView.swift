@@ -19,7 +19,7 @@ struct MainTabView: View {
 				Image(systemName: "house")
 				Text("Home")
 			}
-			SecondView()
+			PerMeView()
 				.tabItem {
 					Image(systemName: "arrow.clockwise.heart")
 					Text("Per me")

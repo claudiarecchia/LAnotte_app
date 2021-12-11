@@ -10,8 +10,10 @@ import Foundation
 final class LocaliViewModel : ObservableObject {
     
     @Published var businesses: [Business] = []
-    
+    @Published var isLoading = true
+	
     func loadData(path: String, method: String){
+		self.isLoading = true
         guard let url = URL(string: base_server_uri + path) else{
             fatalError("URL mancante")
         }
@@ -24,12 +26,13 @@ final class LocaliViewModel : ObservableObject {
                 return
             }
             print(data)
+			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
             do {
                 let response = try? JSONDecoder().decode([Business].self, from: data)
                 DispatchQueue.main.async {
+					self.isLoading = false
                     self.businesses = response!
                 }
-                
             }
         }
         

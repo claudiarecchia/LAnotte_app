@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E246398276373A30047455D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E246397276373A30047455D /* AudioToolbox.framework */; };
 		8E3E7436275CBBE000EC28A5 /* LAnotte_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7435275CBBE000EC28A5 /* LAnotte_appApp.swift */; };
 		8E3E7438275CBBE000EC28A5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7437275CBBE000EC28A5 /* MainTabView.swift */; };
 		8E3E743A275CBBE300EC28A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E7439275CBBE300EC28A5 /* Assets.xcassets */; };
@@ -15,7 +16,7 @@
 		8E3E7451275CBBE400EC28A5 /* LAnotte_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7450275CBBE400EC28A5 /* LAnotte_appUITests.swift */; };
 		8E3E7453275CBBE400EC28A5 /* LAnotte_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7452275CBBE400EC28A5 /* LAnotte_appUITestsLaunchTests.swift */; };
 		8E3E7460275CCC9800EC28A5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E745F275CCC9800EC28A5 /* HomeView.swift */; };
-		8E3E7462275CCCD900EC28A5 /* SecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7461275CCCD900EC28A5 /* SecondView.swift */; };
+		8E3E7462275CCCD900EC28A5 /* PerMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7461275CCCD900EC28A5 /* PerMeView.swift */; };
 		8E3E7464275CCCF900EC28A5 /* ThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7463275CCCF900EC28A5 /* ThirdView.swift */; };
 		8E3E7466275CCD0A00EC28A5 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7465275CCD0A00EC28A5 /* OrderView.swift */; };
 		8E3E746C275CD49B00EC28A5 /* Product_class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E746B275CD49B00EC28A5 /* Product_class.swift */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E246395276373A30047455D /* LAnotte_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LAnotte_app.entitlements; sourceTree = "<group>"; };
+		8E246397276373A30047455D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8E3E7432275CBBE000EC28A5 /* LAnotte_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAnotte_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E3E7435275CBBE000EC28A5 /* LAnotte_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotte_appApp.swift; sourceTree = "<group>"; };
 		8E3E7437275CBBE000EC28A5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -65,7 +68,7 @@
 		8E3E7450275CBBE400EC28A5 /* LAnotte_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotte_appUITests.swift; sourceTree = "<group>"; };
 		8E3E7452275CBBE400EC28A5 /* LAnotte_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotte_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8E3E745F275CCC9800EC28A5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		8E3E7461275CCCD900EC28A5 /* SecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondView.swift; sourceTree = "<group>"; };
+		8E3E7461275CCCD900EC28A5 /* PerMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerMeView.swift; sourceTree = "<group>"; };
 		8E3E7463275CCCF900EC28A5 /* ThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdView.swift; sourceTree = "<group>"; };
 		8E3E7465275CCD0A00EC28A5 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		8E3E746B275CD49B00EC28A5 /* Product_class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product_class.swift; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E246398276373A30047455D /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E246396276373A30047455D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E246397276373A30047455D /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8E3E7429275CBBE000EC28A5 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +130,7 @@
 				8E3E7445275CBBE400EC28A5 /* LAnotte_appTests */,
 				8E3E744F275CBBE400EC28A5 /* LAnotte_appUITests */,
 				8E3E7433275CBBE000EC28A5 /* Products */,
+				8E246396276373A30047455D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +147,7 @@
 		8E3E7434275CBBE000EC28A5 /* LAnotte_app */ = {
 			isa = PBXGroup;
 			children = (
+				8E246395276373A30047455D /* LAnotte_app.entitlements */,
 				8E3E7478275D1E0300EC28A5 /* data_utility */,
 				8E3E7473275CDB6300EC28A5 /* views */,
 				8E3E7467275CD43C00EC28A5 /* model */,
@@ -193,7 +207,7 @@
 				8E3E745F275CCC9800EC28A5 /* HomeView.swift */,
 				8E3E7465275CCD0A00EC28A5 /* OrderView.swift */,
 				8E3E7474275CDC5400EC28A5 /* LocaliView.swift */,
-				8E3E7461275CCCD900EC28A5 /* SecondView.swift */,
+				8E3E7461275CCCD900EC28A5 /* PerMeView.swift */,
 				8E3E7476275CDC6200EC28A5 /* ProdottiView.swift */,
 				8E3E7487275F739D00EC28A5 /* BusinessDetailView.swift */,
 			);
@@ -378,7 +392,7 @@
 				8E3E7472275CDA1A00EC28A5 /* Order.swift in Sources */,
 				8EA0ABBD2761069800038D54 /* LAnotteProductNameAndStampsView.swift in Sources */,
 				8E3E7460275CCC9800EC28A5 /* HomeView.swift in Sources */,
-				8E3E7462275CCCD900EC28A5 /* SecondView.swift in Sources */,
+				8E3E7462275CCCD900EC28A5 /* PerMeView.swift in Sources */,
 				8E3E746E275CD8E400EC28A5 /* User.swift in Sources */,
 				8E3E7475275CDC5400EC28A5 /* LocaliView.swift in Sources */,
 				8E3E7466275CCD0A00EC28A5 /* OrderView.swift in Sources */,
@@ -544,6 +558,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LAnotte_app/LAnotte_app.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LAnotte_app/Preview Content\"";
@@ -564,7 +579,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -573,6 +588,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LAnotte_app/LAnotte_app.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LAnotte_app/Preview Content\"";
@@ -593,7 +609,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

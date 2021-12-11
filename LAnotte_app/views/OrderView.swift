@@ -9,7 +9,11 @@ import SwiftUI
 
 struct OrderView: View {
 	
+	@State private var confirmationMessage = ""
+	@State private var showingConfirmation = false
+	
 	@EnvironmentObject var order: Order
+	@Environment(\.colorScheme) var colorScheme
 	
 	var body: some View {
 		
@@ -30,7 +34,7 @@ struct OrderView: View {
 						
 					}
 					.frame(maxWidth: .infinity, alignment: .center)
-					.listRowBackground(Color(.secondarySystemBackground))
+					.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 					
 				}
 				
@@ -62,10 +66,29 @@ struct OrderView: View {
 						}
 					}
 				}
-				
+			
+				Section{
+					Button {
+						Task{
+							await placeOrder()
+						}
+					} label: {
+						Text("Conferma ordine")
+							.padding()
+							.foregroundColor(.white)
+							.background(.blue)
+							.cornerRadius(8)
+					}
+					.frame(maxWidth: .infinity, alignment: .center)
+					.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
+				}
 			}
+			.alert("Ordine confermato", isPresented: $showingConfirmation) {
+				Button("OK") { }
+		 } message: {
+		   Text(confirmationMessage)
+		 }
 		}
-		
 		else {
 			Text("Inserisci prodotti nell'ordine per visualizzarli qui")
 			                .padding()
@@ -73,7 +96,33 @@ struct OrderView: View {
 			                .foregroundColor(.gray)
 		}
 	}
+	func placeOrder() async{
+		guard let encoded = try? JSONEncoder().encode(order) else{
+			print("Failed to encode order")
+			return
+		}
+		
+		let url = URL(string: base_server_uri + "placeOrder")!
+		var request = URLRequest(url: url)
+		request.setValue("application/json", forHTTPHeaderField: "Content-type")
+		request.httpMethod = "POST"
+		
+		do{
+			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			let decodedOrder = try JSONDecoder().decode([Order].self, from: data)
+			confirmationMessage = "Sottotitolo"
+			showingConfirmation = true
+			print("OK")
+			
+		} catch {
+			print("Checkout failed")
+		}
+	}
 }
+
+
+
 
 struct OrderView_Previews: PreviewProvider {
 	static var previews: some View {
