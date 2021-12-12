@@ -24,7 +24,7 @@ struct MainTabView: View {
 					Image(systemName: "arrow.clockwise.heart")
 					Text("Per me")
 				}
-			ThirdView()
+			ArchivioView()
 				.tabItem {
 					Image(systemName: "tray")
 					Text("Archivio")

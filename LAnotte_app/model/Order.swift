@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Order: ObservableObject, Codable {
+class Order: ObservableObject, Codable, Identifiable {
 	
 	enum CodingKeys: CodingKey{
 		case products, business, user

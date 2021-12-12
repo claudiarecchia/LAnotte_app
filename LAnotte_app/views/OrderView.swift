@@ -110,11 +110,20 @@ struct OrderView: View {
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
-			let decodedOrder = try JSONDecoder().decode([Order].self, from: data)
-			confirmationMessage = "Sottotitolo"
-			showingConfirmation = true
-			print("OK")
-			
+			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
+				
+				KeychainHelper.standard.save(decodedOrder.first?.user, service: "user", account: "lanotte")
+				
+				// print(decodedOrder.first?.user.id!)
+				let result = KeychainHelper.standard.read(service: "user",
+														  account: "lanotte",
+														  type: User.self)!
+				
+				print(result.id)
+				confirmationMessage = "Sottotitolo"
+				showingConfirmation = true
+				print("OK")
+			}
 		} catch {
 			print("Checkout failed")
 		}
