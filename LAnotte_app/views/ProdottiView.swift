@@ -11,6 +11,7 @@ struct ProdottiView: View {
 	
 	@StateObject private var localiViewModel = LocaliViewModel()
 	@EnvironmentObject var order : Order
+
 	
 	var body: some View {
 		

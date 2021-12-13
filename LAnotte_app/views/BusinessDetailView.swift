@@ -11,6 +11,7 @@ struct BusinessDetailView: View {
 	
 	@EnvironmentObject var order: Order
 	@State var business: Business = Business.defaultBusiness
+	@Environment(\.colorScheme) var colorScheme
 	
 	var body: some View {
 		NavigationView{
@@ -40,8 +41,8 @@ struct BusinessDetailView: View {
 								.fontWeight(.light)
 						}
 					}
-					.frame(maxWidth: .infinity, alignment: .center)
-					.listRowBackground(Color(.secondarySystemBackground))
+					.frame(maxWidth: .infinity, alignment: .center)				
+					.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 				}
 				
 				ForEach(business.products){ item in

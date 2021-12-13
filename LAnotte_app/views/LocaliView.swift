@@ -13,7 +13,6 @@ struct LocaliView: View {
 	
 	var body: some View {
 		ZStack{
-			
 			if localiViewModel.isLoading{ ProgressView() }
 			else{
 				List(localiViewModel.businesses, id: \.id) { item in

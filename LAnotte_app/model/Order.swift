@@ -10,26 +10,22 @@ import Foundation
 class Order: ObservableObject, Codable, Identifiable {
 	
 	enum CodingKeys: CodingKey{
-		case products, business, user
+		case id, products, business, user, date_time
 	}
 	
+	
+	@Published var id : String = ""
 	@Published var products = [Product]()
 	@Published var business: Business = Business.defaultBusiness
 	@Published var user: User = User()
+	@Published var date_time: String = ""
 	
 	@Published var alertOtherBusinessMessage = ""
 	@Published var showingAlertOtherBusiness = false
 	
-	//    var id: String?
-	//    var hour: String?
-	//    var date: String?
 	//    var estimated_hour: String?
 	//    var state: String?
-	//    var products: [Product]?
-	//    var business: Business?
-	//    var user: User?
-	
-	
+
 	func addProduct(product: Product, product_business: Business){
 		if business.business_name == Business.defaultBusiness.business_name {
 			self.business = product_business
@@ -66,25 +62,33 @@ class Order: ObservableObject, Codable, Identifiable {
 		return counts
 	}
 	
+	func getTotal() -> Double {
+		var total: Double = 0
+		for product in products {
+			total += product.price
+		}
+		return total
+	}
+	
 	init() { }
 	
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		
+		try container.encode(id, forKey: .id)
 		try container.encode(products, forKey: .products)
 		try container.encode(business, forKey: .business)
 		try container.encode(user, forKey: .user)
+		try container.encode(date_time, forKey: .date_time)
 	}
 	
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
+		id = try container.decode(String.self, forKey: .id)
 		products = try container.decode([Product].self, forKey: .products)
 		business = try container.decode(Business.self, forKey: .business)
 		user = try container.decode(User.self, forKey: .user)
+		date_time = try container.decode(String.self, forKey: .date_time)
 	}
-	
-	
-	
-	
 }

@@ -73,7 +73,7 @@ struct OrderView: View {
 							await placeOrder()
 						}
 					} label: {
-						Text("Conferma ordine")
+						Text("Conferma ordine € \((String(format: "%.2f", order.getTotal())))")
 							.padding()
 							.foregroundColor(.white)
 							.background(.blue)
@@ -97,6 +97,22 @@ struct OrderView: View {
 		}
 	}
 	func placeOrder() async{
+		// add user to order
+		let user = KeychainHelper.standard.read(service: "user",
+												  account: "lanotte",
+												  type: User.self)
+		if user != nil {
+			DispatchQueue.main.async{
+				order.user = user!
+			}
+			
+		}
+		
+		// add date to order
+		DispatchQueue.main.async{
+			order.date_time = Date().formatted(date: .numeric, time: .shortened)
+		}
+		
 		guard let encoded = try? JSONEncoder().encode(order) else{
 			print("Failed to encode order")
 			return
@@ -112,14 +128,15 @@ struct OrderView: View {
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
 				
-				KeychainHelper.standard.save(decodedOrder.first?.user, service: "user", account: "lanotte")
-				
+				if user == nil {
+					KeychainHelper.standard.save(decodedOrder.first?.user, service: "user", account: "lanotte")
+				}
 				// print(decodedOrder.first?.user.id!)
-				let result = KeychainHelper.standard.read(service: "user",
-														  account: "lanotte",
-														  type: User.self)!
-				
-				print(result.id)
+//				let result = KeychainHelper.standard.read(service: "user",
+//														  account: "lanotte",
+//														  type: User.self)!
+//
+//				print(result.id)
 				confirmationMessage = "Sottotitolo"
 				showingConfirmation = true
 				print("OK")
