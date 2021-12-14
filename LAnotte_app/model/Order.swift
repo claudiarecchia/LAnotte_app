@@ -70,6 +70,22 @@ class Order: ObservableObject, Codable, Identifiable {
 		return total
 	}
 	
+	func setUser(user: User){
+		self.user = user
+	}
+	
+	func setDateTime(date_time: String){
+		self.date_time = date_time
+	}
+	
+	func emptyOrder(){
+		id = ""
+		products = [Product]()
+		business = Business.defaultBusiness
+		user = User()
+		date_time = ""
+	}
+	
 	init() { }
 	
 	func encode(to encoder: Encoder) throws {
@@ -91,4 +107,6 @@ class Order: ObservableObject, Codable, Identifiable {
 		user = try container.decode(User.self, forKey: .user)
 		date_time = try container.decode(String.self, forKey: .date_time)
 	}
+	
+	
 }

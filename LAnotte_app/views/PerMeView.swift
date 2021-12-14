@@ -31,42 +31,42 @@ struct PerMeView: View {
 			
 			Spacer()
 			
-			SignInWithAppleButton(.continue){ request in
-				
-				request.requestedScopes = [.email, .fullName]
-				
-			}
-			
-			onCompletion: { result in
-			
-				switch result {
-				case .success(let auth):
-					switch auth.credential {
-					case let credentials as ASAuthorizationAppleIDCredential:
-						let userId = credentials.user
-						
-						let email = credentials.email
-						let firstName = credentials.fullName?.givenName
-						let lastName = credentials.fullName?.familyName
-						
-						self.email = email ?? ""
-						self.firstName = firstName ?? ""
-						self.lastName = lastName ?? ""
-						self.userId = userId
-						
-					default:
-						break
-					}
-					
-				case .failure(let error): print(error)
-				}
-			
-			
-		}
-		.frame(height: 50)
-		.padding()
-		.cornerRadius(8)
-		.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+			//			SignInWithAppleButton(.continue){ request in
+			//
+			//				request.requestedScopes = [.email, .fullName]
+			//
+			//			}
+			//
+			//			onCompletion: { result in
+			//
+			//				switch result {
+			//				case .success(let auth):
+			//					switch auth.credential {
+			//					case let credentials as ASAuthorizationAppleIDCredential:
+			//						let userId = credentials.user
+			//
+			//						let email = credentials.email
+			//						let firstName = credentials.fullName?.givenName
+			//						let lastName = credentials.fullName?.familyName
+			//
+			//						self.email = email ?? ""
+			//						self.firstName = firstName ?? ""
+			//						self.lastName = lastName ?? ""
+			//						self.userId = userId
+			//
+			//					default:
+			//						break
+			//					}
+			//
+			//				case .failure(let error): print(error)
+			//				}
+			//
+			//
+			//		}
+			//		.frame(height: 50)
+			//		.padding()
+			//		.cornerRadius(8)
+			//		.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
 		}
 		
 		
@@ -80,6 +80,6 @@ struct PerMeView: View {
 struct PerMeView_Previews: PreviewProvider {
 	static var previews: some View {
 		PerMeView()
-			
+		
 	}
 }

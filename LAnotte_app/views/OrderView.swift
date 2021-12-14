@@ -9,10 +9,12 @@ import SwiftUI
 
 struct OrderView: View {
 	
-	@State private var confirmationMessage = ""
-	@State private var showingConfirmation = false
+//	@State private var confirmationMessage = ""
+//	@State private var showingConfirmation = false
+	@StateObject private var ordersViewModel = OrdersViewModel()
 	
 	@EnvironmentObject var order: Order
+	
 	@Environment(\.colorScheme) var colorScheme
 	
 	var body: some View {
@@ -70,7 +72,7 @@ struct OrderView: View {
 				Section{
 					Button {
 						Task{
-							await placeOrder()
+							await ordersViewModel.placeOrder(order: order)
 						}
 					} label: {
 						Text("Conferma ordine € \((String(format: "%.2f", order.getTotal())))")
@@ -83,10 +85,12 @@ struct OrderView: View {
 					.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 				}
 			}
-			.alert("Ordine confermato", isPresented: $showingConfirmation) {
-				Button("OK") { }
+			.alert("Ordine confermato", isPresented: $ordersViewModel.showingConfirmation) {
+				Button("OK") {
+					order.emptyOrder()
+				}
 		 } message: {
-		   Text(confirmationMessage)
+			 Text(ordersViewModel.confirmationMessage)
 		 }
 		}
 		else {
@@ -94,55 +98,6 @@ struct OrderView: View {
 			                .padding()
 			                .multilineTextAlignment(.center)
 			                .foregroundColor(.gray)
-		}
-	}
-	func placeOrder() async{
-		// add user to order
-		let user = KeychainHelper.standard.read(service: "user",
-												  account: "lanotte",
-												  type: User.self)
-		if user != nil {
-			DispatchQueue.main.async{
-				order.user = user!
-			}
-			
-		}
-		
-		// add date to order
-		DispatchQueue.main.async{
-			order.date_time = Date().formatted(date: .numeric, time: .shortened)
-		}
-		
-		guard let encoded = try? JSONEncoder().encode(order) else{
-			print("Failed to encode order")
-			return
-		}
-		
-		let url = URL(string: base_server_uri + "placeOrder")!
-		var request = URLRequest(url: url)
-		request.setValue("application/json", forHTTPHeaderField: "Content-type")
-		request.httpMethod = "POST"
-		
-		do{
-			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
-			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				
-				if user == nil {
-					KeychainHelper.standard.save(decodedOrder.first?.user, service: "user", account: "lanotte")
-				}
-				// print(decodedOrder.first?.user.id!)
-//				let result = KeychainHelper.standard.read(service: "user",
-//														  account: "lanotte",
-//														  type: User.self)!
-//
-//				print(result.id)
-				confirmationMessage = "Sottotitolo"
-				showingConfirmation = true
-				print("OK")
-			}
-		} catch {
-			print("Checkout failed")
 		}
 	}
 }
