@@ -19,3 +19,10 @@ func convertStringToDate(dateTime : String) -> Date {
 	
 	return finalDate!
 }
+
+func getCurrentDateTimeString() -> String {
+	let dateFormatter = DateFormatter()
+	dateFormatter.dateFormat = "dd/MM/yyyy, HH:mm"
+	let date = dateFormatter.string(from: Date())
+	return date
+}

@@ -74,6 +74,13 @@ struct BusinessDetailView: View {
 					}
 				}
 			}.hiddenNavigationBarStyle()
+				.alert("Attenzione! Prodotto non aggiunto", isPresented: $order.showingAlertOtherBusiness) {
+					Button("OK") {
+						order.emptyOrder()
+					}
+			 } message: {
+				 Text(order.alertOtherBusinessMessage)
+			 }
 				
 		}
 		

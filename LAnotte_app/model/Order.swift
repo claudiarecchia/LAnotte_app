@@ -37,10 +37,8 @@ class Order: ObservableObject, Codable, Identifiable {
 			}
 			// selected a product of another business -- not allowed
 			else{
-#warning("AGGIUNGERE ALERT IN CASO DI SELEZIONE PRODOTTO DA UN'ALTRA AZIENDA")
-				
-//				self.alertOtherBusinessMessage = "Stai già effettuando un ordine da \(self.business.business_name)"
-//				self.showingAlertOtherBusiness = true
+				self.alertOtherBusinessMessage = "Stai già effettuando un ordine da \(self.business.business_name)"
+				self.showingAlertOtherBusiness = true
 			}
 		}
 	}

@@ -10,8 +10,6 @@ import SwiftUI
 struct ArchivioView: View {
 	
 	@StateObject private var ordersViewModel = OrdersViewModel()
-	// @State private var isLoggedIn : Bool = false
-	// @State private var isLoading : Bool = false
 	@State private var orders : [Order] = [Order]()
 	@Environment(\.colorScheme) var colorScheme
 	
@@ -60,55 +58,28 @@ struct ArchivioView: View {
 				}
 			}
 			else{
-				Spacer()
+				VStack{
+					Spacer()
+					
+					Text("Effettua il login vedere lo storico dei tuoi ordini")
+						.padding()
+						.multilineTextAlignment(.center)
+						.foregroundColor(.gray)
+						.frame(maxWidth: .infinity)
+					Spacer()
+				}
 				
-				Text("Effettua il login vedere lo storico dei tuoi ordini")
-					.padding()
-					.multilineTextAlignment(.center)
-					.foregroundColor(.gray)
-				
-				Spacer()
 			}
 		}
 		.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 		.onAppear {
 			Task{
-				await ordersViewModel.LoggedIn()
+				ordersViewModel.LoggedIn()
+				await ordersViewModel.GetMyOrders()
 			}
 			
 		}
 	}
-	
-
-	
-//	func loadData(path: String, method: String, user: User) async {
-//		
-//		self.isLoading = true
-//		guard let encoded = try? JSONEncoder().encode(user) else{
-//			print("Failed to encode user")
-//			return
-//		}
-//		
-//		let url = URL(string: base_server_uri + "archive")!
-//		var request = URLRequest(url: url)
-//		request.setValue("application/json", forHTTPHeaderField: "Content-type")
-//		request.httpMethod = "POST"
-//		
-//		do{
-//			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-//			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
-//			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-//				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
-//				DispatchQueue.main.async {
-//					self.isLoading = false
-//					self.orders = decodedOrder
-//				}
-//			}
-//		} catch {
-//			print("Checkout failed")
-//		}
-//	}
-	
 }
 
 struct ArchivioView_Previews: PreviewProvider {
