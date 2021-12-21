@@ -11,50 +11,55 @@ struct ProdottiView: View {
 	
 	@StateObject private var localiViewModel = LocaliViewModel()
 	@EnvironmentObject var order : Order
-
+	
+	@State private var searchString = ""
 	
 	var body: some View {
-		
-		Form{
-			ForEach(localiViewModel.businesses) { business in
-				List(business.products, id: \.id) { item in
-					
-					VStack(alignment: .leading, spacing: 8){
-						HStack{
+		VStack{
+			
+			LAnotteSearchBar(text: $searchString, placeholderText: "Cerca il nome di un prodotto")
+			
+			Form{
+				ForEach(localiViewModel.businesses) { business in
+					List(searchString == "" ? business.products: business.products.filter { $0.name.contains(searchString)}, id: \.self) { item in
+						
+						VStack(alignment: .leading, spacing: 8){
+							HStack{
+								
+								LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+								
+								VStack(alignment: .leading, spacing: 3) {
+									
+									LAnotteProductNameAndStampsView(item: item)
+									
+									Text(item.category)
+										.font(.subheadline)
+										.fontWeight(.light)
+									
+								}
+							}
 							
-							LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+							LAnotteProductPriceView(item: item)
 							
-							VStack(alignment: .leading, spacing: 3) {
-								
-								LAnotteProductNameAndStampsView(item: item)
-								
-								Text(item.category)
-									.font(.subheadline)
-									.fontWeight(.light)
-								
+							ProductBusiness(business: business)
+							
+							LAnotteProductIngredientsView(item: item)
+							
+							Stepper {
+								Text("Aggiunti all'ordine: \(order.getQuantityProductInOrder(product: item)) ")
+							} onIncrement: {
+								order.addProduct(product: item, product_business: business)
+							} onDecrement: {
+								order.removeProduct(product: item)
 							}
 						}
-						
-						LAnotteProductPriceView(item: item)
-						
-						ProductBusiness(business: business)
-						
-						LAnotteProductIngredientsView(item: item)
-						
-						Stepper {
-							Text("Aggiunti all'ordine: \(order.getQuantityProductInOrder(product: item)) ")
-						} onIncrement: {
-							order.addProduct(product: item, product_business: business)
-						} onDecrement: {
-							order.removeProduct(product: item)
-						}
 					}
-					
 				}
+			}.onAppear {
+				localiViewModel.loadData(path: "allBusinesses", method: "GET")
 			}
-		}.onAppear {
-			localiViewModel.loadData(path: "allBusinesses", method: "GET")
 		}
+		
 	}
 }
 

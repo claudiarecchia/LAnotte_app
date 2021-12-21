@@ -10,22 +10,28 @@ import SwiftUI
 struct LocaliView: View {
 	
 	@StateObject private var localiViewModel = LocaliViewModel()
+	@State private var searchString = ""
 	
 	var body: some View {
 		ZStack{
 			if localiViewModel.isLoading{ ProgressView() }
 			else{
-				List(localiViewModel.businesses, id: \.id) { item in
-					NavigationLink(destination: BusinessDetailView(business: item), label: {
-						VStack(alignment: .leading) {
-							HStack{
-								LAnotteRoundedImageView(image: "business", dimension: 70)
-								Text(item.business_name)
-									.font(.headline)
+				VStack{
+					LAnotteSearchBar(text: $searchString, placeholderText: "Cerca il nome di un locale")
+					List(searchString == "" ? localiViewModel.businesses: localiViewModel.businesses.filter { $0.business_name.contains(searchString)}, id: \.self) { item in
+						
+						NavigationLink(destination: BusinessDetailView(business: item), label: {
+							VStack(alignment: .leading) {
+								HStack{
+									LAnotteRoundedImageView(image: "business", dimension: 70)
+									Text(item.business_name)
+										.font(.headline)
+								}
 							}
-						}
-					})
+						})
+					}
 				}
+				
 			}
 		} .hiddenNavigationBarStyle()
 			.onAppear {
@@ -34,6 +40,7 @@ struct LocaliView: View {
 			}
 	}
 }
+
 
 
 struct LocaliView_Previews: PreviewProvider {

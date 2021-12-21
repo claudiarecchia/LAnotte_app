@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Business: Identifiable, Codable {
+struct Business: Identifiable, Codable, Hashable {
     
     let id: String
     let business_name: String

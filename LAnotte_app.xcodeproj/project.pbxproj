@@ -38,6 +38,7 @@
 		8EA0ABB72760E1A400038D54 /* LAnotteProductPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABB62760E1A400038D54 /* LAnotteProductPriceView.swift */; };
 		8EA0ABBB2761063D00038D54 /* LAnotteProductIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */; };
 		8EA0ABBD2761069800038D54 /* LAnotteProductNameAndStampsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */; };
+		8EE7124C277249E200422F32 /* LAnotteSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		8EA0ABB62760E1A400038D54 /* LAnotteProductPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductPriceView.swift; sourceTree = "<group>"; };
 		8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductIngredientsView.swift; sourceTree = "<group>"; };
 		8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductNameAndStampsView.swift; sourceTree = "<group>"; };
+		8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteSearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 				8E3E7485275F6CEB00EC28A5 /* LAnotteRoundedImageView.swift */,
 				8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */,
 				8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */,
+				8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */,
 			);
 			path = defined_views;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E3E7438275CBBE000EC28A5 /* MainTabView.swift in Sources */,
+				8EE7124C277249E200422F32 /* LAnotteSearchBar.swift in Sources */,
 				8E3E7480275E187A00EC28A5 /* Product.swift in Sources */,
 				8E3E7477275CDC6200EC28A5 /* ProdottiView.swift in Sources */,
 				8E3E7486275F6CEC00EC28A5 /* LAnotteRoundedImageView.swift in Sources */,
