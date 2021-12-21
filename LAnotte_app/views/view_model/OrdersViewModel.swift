@@ -34,7 +34,6 @@ final class OrdersViewModel : ObservableObject {
 		}
 	}
 	
-	
 	func loadData(path: String, method: String, user: User) async {
 		self.isLoading = true
 		guard let encoded = try? JSONEncoder().encode(user) else{

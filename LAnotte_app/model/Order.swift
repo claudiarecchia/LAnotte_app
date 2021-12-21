@@ -23,6 +23,10 @@ class Order: ObservableObject, Codable, Identifiable {
 	@Published var alertOtherBusinessMessage = ""
 	@Published var showingAlertOtherBusiness = false
 	
+	@Published var alertModifiedOrderMessage = ""
+	@Published var showingAlertModifiedOrder = false
+	
+	
 	//    var estimated_hour: String?
 	//    var state: String?
 
@@ -37,15 +41,30 @@ class Order: ObservableObject, Codable, Identifiable {
 			}
 			// selected a product of another business -- not allowed
 			else{
-				self.alertOtherBusinessMessage = "Stai già effettuando un ordine da \(self.business.business_name)"
+				self.alertOtherBusinessMessage = "Stai già effettuando un altro ordine da \(self.business.business_name)"
 				self.showingAlertOtherBusiness = true
 			}
+		}
+	}
+	
+	func checkBeginningAnotherOrder(newOrder : Order) -> Bool {
+		if self.business != Business.defaultBusiness {
+			return true
+		}
+		else {
+			return false
 		}
 	}
 	
 	func removeProduct(product: Product){
 		if let index = self.products.firstIndex(of: product){
 			self.products.remove(at: index)
+		}
+		
+		// removing products, if in products list there are no more elements
+		// then, reset the business for the next order
+		if self.products.count == 0 {
+			self.business = Business.defaultBusiness
 		}
 	}
 	
@@ -58,6 +77,19 @@ class Order: ObservableObject, Codable, Identifiable {
 			}
 		}
 		return counts
+	}
+	
+	func buildNewOrderFromOldOrder(order: Order){
+		if !checkBeginningAnotherOrder(newOrder: order) {
+			self.products = order.products
+			self.business = order.business
+			self.alertModifiedOrderMessage = "Vai nel tab Ordine e procedi con il pagamento"
+			self.showingAlertModifiedOrder = true
+		}
+		else{
+			self.alertOtherBusinessMessage = "Stai già effettuando un altro ordine da \(self.business.business_name)"
+			self.showingAlertOtherBusiness = true
+		}
 	}
 	
 	func getTotal() -> Double {
