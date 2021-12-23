@@ -12,6 +12,7 @@ struct OrderView: View {
 	@StateObject private var ordersViewModel = OrdersViewModel()
 	
 	@EnvironmentObject var order: Order
+	@EnvironmentObject var user: User
 	
 	@Environment(\.colorScheme) var colorScheme
 	
@@ -70,7 +71,7 @@ struct OrderView: View {
 				Section{
 					Button {
 						Task{
-							await ordersViewModel.placeOrder(order: order)
+							await ordersViewModel.placeOrder(order: order, user: user)
 						}
 					} label: {
 						Text("Conferma ordine € \((String(format: "%.2f", order.getTotal())))")
@@ -105,6 +106,6 @@ struct OrderView: View {
 
 struct OrderView_Previews: PreviewProvider {
 	static var previews: some View {
-		OrderView().environmentObject(Order())
+		OrderView().environmentObject(Order()).environmentObject(User())
 	}
 }

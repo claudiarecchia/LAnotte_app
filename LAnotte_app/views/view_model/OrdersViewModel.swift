@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class OrdersViewModel : ObservableObject {
 	
@@ -15,25 +16,7 @@ final class OrdersViewModel : ObservableObject {
 	
 	@Published var confirmationMessage = ""
 	@Published var showingConfirmation = false
-	
-	@Published var favProducts : [String : Product] = [:]
-	
-	@Published var lastOrder: Order = Order()
-	
-	func LoggedIn(){
-		let result = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
-		print("check logged in")
-		if result != nil {
-			self.isLoggedIn = true
-		}
-	}	
-	
-	func GetMyOrders() async {
-		if self.isLoggedIn{
-			let user = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
-			await loadData(path: "archive", method: "POST", user: user!)
-		}
-	}
+
 	
 	func loadData(path: String, method: String, user: User) async {
 		self.isLoading = true
@@ -62,50 +45,46 @@ final class OrdersViewModel : ObservableObject {
 		}
 	}
 	
-	func LastProduct() async {
-		// add user to order
-		let user = KeychainHelper.standard.read(service: "user",
-												account: "lanotte",
-												type: User.self)
-		
-		
-		guard let encoded = try? JSONEncoder().encode(user) else{
-			print("Failed to encode user")
-			return
-		}
-		
-		let url = URL(string: base_server_uri + "lastOrder")!
-		var request = URLRequest(url: url)
-		request.setValue("application/json", forHTTPHeaderField: "Content-type")
-		request.httpMethod = "POST"
-		
-		do{
-			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
-			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				
-				DispatchQueue.main.async {
-					if decodedOrder.count > 0{
-						self.lastOrder = decodedOrder[0]
-					}
-				}
-			}
-		} catch {
-			print("Checkout failed")
-		}
-		
-	}
+//	func LastProduct() async {
+//		// add user to order
+//		let user = KeychainHelper.standard.read(service: "user",
+//												account: "lanotte",
+//												type: User.self)
+//
+//
+//		guard let encoded = try? JSONEncoder().encode(user) else{
+//			print("Failed to encode user")
+//			return
+//		}
+//
+//		let url = URL(string: base_server_uri + "lastOrder")!
+//		var request = URLRequest(url: url)
+//		request.setValue("application/json", forHTTPHeaderField: "Content-type")
+//		request.httpMethod = "POST"
+//
+//		do{
+//			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+//			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+//			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
+//
+//				DispatchQueue.main.async {
+//					if decodedOrder.count > 0{
+//						self.lastOrder = decodedOrder[0]
+//					}
+//				}
+//			}
+//		} catch {
+//			print("Checkout failed")
+//		}
+//
+//	}
 	
 	
-	func placeOrder(order: Order) async {
-		// add user to order
-		let user = KeychainHelper.standard.read(service: "user",
-												account: "lanotte",
-												type: User.self)
-		if user != nil {
-			order.user = user!
+	func placeOrder(order: Order, user : User) async {
+		if user.id != nil {
+			order.user = user
 		}
-		
+			
 		// add date to order
 		order.date_time = getCurrentDateTimeString()
 		
@@ -125,8 +104,8 @@ final class OrdersViewModel : ObservableObject {
 			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
 				
-				if user == nil {
-					KeychainHelper.standard.save(decodedOrder.first?.user, service: "user", account: "lanotte")
+				if user.id == nil {
+					user.login(user: (decodedOrder.first?.user)!)
 				}
 				
 				DispatchQueue.main.async {

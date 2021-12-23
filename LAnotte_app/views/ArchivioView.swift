@@ -13,10 +13,11 @@ struct ArchivioView: View {
 	@State private var orders : [Order] = [Order]()
 	@Environment(\.colorScheme) var colorScheme
 	@EnvironmentObject var order: Order
+	@EnvironmentObject var user: User
 	
 	var body: some View {
 		VStack{
-			if ordersViewModel.isLoggedIn{
+			if user.isLoggedIn{
 				VStack{
 					Text("Archivio ordini")
 						.font(.title3)
@@ -102,8 +103,9 @@ struct ArchivioView: View {
 		.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 		.onAppear {
 			Task{
-				ordersViewModel.LoggedIn()
-				await ordersViewModel.GetMyOrders()
+				// ordersViewModel.LoggedIn()
+				user.IsLoggedIn()
+				await ordersViewModel.loadData(path: "archive", method: "POST", user: user)
 			}
 			
 		}

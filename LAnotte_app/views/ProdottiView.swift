@@ -43,24 +43,24 @@ struct ProdottiView: View {
 										
 										if userViewModel.isLogged {
 											if userViewModel.favouriteProducts.values.contains([item]) {
-
+												
 												Button {
 													// userViewModel.removePreferredProduct(product: item)
 												} label: {
 													Image(systemName: "heart.fill")
 														.foregroundColor(.red)
 												}
-
-
+												
+												
 											}
 											else{
 												Button {
-													// user.AddFavouriteProduct(business: business, product: item)
+													// userViewModel.addFavouriteProduct(business: business, product: item)
 												} label: {
 													Image(systemName: "heart")
 														.foregroundColor(.red)
 												}
-
+												
 												
 											}
 										}
@@ -87,7 +87,7 @@ struct ProdottiView: View {
 					}
 				}
 			}.onAppear {
-				userViewModel.LoggedIn()
+				// userViewModel.LoggedIn()
 				localiViewModel.loadData(path: "allBusinesses", method: "GET")
 				Task{
 					await userViewModel.FavouriteProducts()

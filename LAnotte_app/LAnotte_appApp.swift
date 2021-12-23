@@ -11,11 +11,13 @@ import SwiftUI
 struct LAnotte_appApp: App {
     
     @StateObject var order = Order()
+	@StateObject var user = User()
     
     var body: some Scene {
         WindowGroup {
             MainTabView()
                 .environmentObject(order)
+				.environmentObject(user)
         }
     }
 }

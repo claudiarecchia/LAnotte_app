@@ -14,15 +14,15 @@ final class UserViewModel : ObservableObject {
 	@Published var isLogged = false
 	
 	
-	func LoggedIn(){
-		let result = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
-		print("check logged in")
-		if result != nil {
-			self.isLogged = true
+//	func LoggedIn(){
+//		let result = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
+//		print("check logged in")
+//		if result != nil {
+//			self.isLogged = true
 //			self.user.id = result!.id
 //			self.user.favourite_products = result!.favourite_products
-		}
-	}
+//		}
+//	}
 	
 	func FavouriteProducts() async {
 		if self.isLogged {
@@ -58,18 +58,9 @@ final class UserViewModel : ObservableObject {
 			
 		}
 		
-		func CheckProductIsPreferred(product : Product) -> Bool {
-			let result = self.favouriteProducts.contains{ (value) -> Bool in
-				value as? Product == product
-			}
-			return result
-		}
-		
-		func addFavouriteProduct(product : Product) {
+		func addFavouriteProduct(business: Business, product : Product) {
 			// add product to favourites
-			
-			
-			
+
 			// add user to request
 			let user = KeychainHelper.standard.read(service: "user",
 													account: "lanotte",

@@ -14,6 +14,8 @@ struct PerMeView: View {
 	@StateObject private var ordersViewModel = OrdersViewModel()
 	@StateObject private var userViewModel = UserViewModel()
 	
+	@EnvironmentObject var user: User
+	
 	@Environment(\.colorScheme) var colorScheme
 	
 //	@AppStorage("email") var email : String = ""
@@ -25,7 +27,7 @@ struct PerMeView: View {
 	var body: some View {
 		
 		VStack{
-			if userViewModel.isLogged{
+			if user.isLoggedIn{
 				VStack{
 					
 					Text("Per me")
@@ -57,6 +59,12 @@ struct PerMeView: View {
 					.shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
 					
 					Spacer()
+				}
+				
+				Button {
+					user.logout()
+				} label: {
+					Text("Logout")
 				}
 			}
 			else{
@@ -117,8 +125,9 @@ struct PerMeView: View {
 		}
 		.onAppear {
 			Task{
-				 userViewModel.LoggedIn()
-				 await userViewModel.FavouriteProducts()
+				 user.IsLoggedIn()
+				 //userViewModel.LoggedIn()
+				 //await userViewModel.FavouriteProducts()
 			}
 			
 		}
@@ -127,7 +136,7 @@ struct PerMeView: View {
 
 struct PerMeView_Previews: PreviewProvider {
 	static var previews: some View {
-		PerMeView()
+		PerMeView().environmentObject(User())
 		
 	}
 }
