@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct OrderView: View {
-	
-//	@State private var confirmationMessage = ""
-//	@State private var showingConfirmation = false
+
 	@StateObject private var ordersViewModel = OrdersViewModel()
 	
 	@EnvironmentObject var order: Order

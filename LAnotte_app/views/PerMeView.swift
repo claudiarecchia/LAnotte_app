@@ -12,12 +12,20 @@ import AuthenticationServices
 struct PerMeView: View {
 	
 	@StateObject private var ordersViewModel = OrdersViewModel()
+	@StateObject private var userViewModel = UserViewModel()
+	
 	@Environment(\.colorScheme) var colorScheme
+	
+//	@AppStorage("email") var email : String = ""
+//	@AppStorage("firstName") var firstName : String = ""
+//	@AppStorage("lastName") var lastName : String = ""
+//	@AppStorage("userId") var userId : String = ""
+	
 	
 	var body: some View {
 		
 		VStack{
-			if ordersViewModel.isLoggedIn{
+			if userViewModel.isLogged{
 				VStack{
 					
 					Text("Per me")
@@ -31,16 +39,17 @@ struct PerMeView: View {
 							.foregroundColor(.white)
 						
 						
-						
-						Text(ordersViewModel.lastOrder.business.business_name)
-							.fontWeight(.semibold)
-							.foregroundColor(.white)
-							
-						ForEach(ordersViewModel.lastOrder.products) { item in
-							Text(item.name)
-								.foregroundColor(.white)
-							
-						}
+							ForEach(userViewModel.favouriteProducts.keys.sorted(), id: \.self) { key in
+								VStack{
+									Text(key)
+									ForEach(userViewModel.favouriteProducts[key]!){ item in
+										Text(item.name)
+									}
+									
+								}
+										
+									}
+								
 					}
 					.padding()
 					.background(Color.blue)
@@ -49,11 +58,6 @@ struct PerMeView: View {
 					
 					Spacer()
 				}
-				
-				
-				
-				
-				
 			}
 			else{
 				VStack{
@@ -66,50 +70,55 @@ struct PerMeView: View {
 					
 					Spacer()
 					
-					//			SignInWithAppleButton(.continue){ request in
-					//
-					//				request.requestedScopes = [.email, .fullName]
-					//
-					//			}
-					//
-					//			onCompletion: { result in
-					//
-					//				switch result {
-					//				case .success(let auth):
-					//					switch auth.credential {
-					//					case let credentials as ASAuthorizationAppleIDCredential:
-					//						let userId = credentials.user
-					//
-					//						let email = credentials.email
-					//						let firstName = credentials.fullName?.givenName
-					//						let lastName = credentials.fullName?.familyName
-					//
-					//						self.email = email ?? ""
-					//						self.firstName = firstName ?? ""
-					//						self.lastName = lastName ?? ""
-					//						self.userId = userId
-					//
-					//					default:
-					//						break
-					//					}
-					//
-					//				case .failure(let error): print(error)
-					//				}
-					//
-					//
-					//		}
-					//		.frame(height: 50)
-					//		.padding()
-					//		.cornerRadius(8)
-					//		.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+//					SignInWithAppleButton(.continue){ request in
+//
+//						request.requestedScopes = [.email, .fullName]
+//
+//					}
+//
+//				onCompletion: { result in
+//
+//					switch result {
+//					case .success(let auth):
+//						switch auth.credential {
+//						case let credentials as ASAuthorizationAppleIDCredential:
+//							let userId = credentials.user
+//
+//							let email = credentials.email
+//							let firstName = credentials.fullName?.givenName
+//							let lastName = credentials.fullName?.familyName
+//
+//							self.email = email ?? ""
+//							self.firstName = firstName ?? ""
+//							self.lastName = lastName ?? ""
+//							self.userId = userId
+//
+//							print(userId)
+//							print(email)
+//							print(firstName)
+//							print(lastName)
+//
+//						default:
+//							break
+//						}
+//
+//					case .failure(let error): print(error)
+//					}
+//
+//
+//				}
+//				.frame(height: 50)
+//				.padding()
+//				.cornerRadius(8)
+//				.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
 				}
 			}
 			
 		}
 		.onAppear {
 			Task{
-				ordersViewModel.LoggedIn()
-				await ordersViewModel.LastProduct()
+				 userViewModel.LoggedIn()
+				 await userViewModel.FavouriteProducts()
 			}
 			
 		}

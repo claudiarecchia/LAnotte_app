@@ -16,6 +16,8 @@ final class OrdersViewModel : ObservableObject {
 	@Published var confirmationMessage = ""
 	@Published var showingConfirmation = false
 	
+	@Published var favProducts : [String : Product] = [:]
+	
 	@Published var lastOrder: Order = Order()
 	
 	func LoggedIn(){
@@ -24,8 +26,7 @@ final class OrdersViewModel : ObservableObject {
 		if result != nil {
 			self.isLoggedIn = true
 		}
-	}
-	
+	}	
 	
 	func GetMyOrders() async {
 		if self.isLoggedIn{
@@ -50,7 +51,7 @@ final class OrdersViewModel : ObservableObject {
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+				print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 				DispatchQueue.main.async {
 					self.isLoading = false
 					self.orders = decodedOrder
@@ -84,7 +85,9 @@ final class OrdersViewModel : ObservableObject {
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
 				
 				DispatchQueue.main.async {
-					self.lastOrder = decodedOrder[0]
+					if decodedOrder.count > 0{
+						self.lastOrder = decodedOrder[0]
+					}
 				}
 			}
 		} catch {
@@ -119,7 +122,7 @@ final class OrdersViewModel : ObservableObject {
 		
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
 				
 				if user == nil {

@@ -38,6 +38,7 @@
 		8EA0ABB72760E1A400038D54 /* LAnotteProductPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABB62760E1A400038D54 /* LAnotteProductPriceView.swift */; };
 		8EA0ABBB2761063D00038D54 /* LAnotteProductIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */; };
 		8EA0ABBD2761069800038D54 /* LAnotteProductNameAndStampsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */; };
+		8EA7B3972773A15100B34F65 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7B3962773A15100B34F65 /* UserViewModel.swift */; };
 		8EE7124C277249E200422F32 /* LAnotteSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		8EA0ABB62760E1A400038D54 /* LAnotteProductPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductPriceView.swift; sourceTree = "<group>"; };
 		8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductIngredientsView.swift; sourceTree = "<group>"; };
 		8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductNameAndStampsView.swift; sourceTree = "<group>"; };
+		8EA7B3962773A15100B34F65 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteSearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +259,7 @@
 			children = (
 				8E3E7483275E971600EC28A5 /* LocaliViewModel.swift */,
 				8E24639D2767D08D0047455D /* OrdersViewModel.swift */,
+				8EA7B3962773A15100B34F65 /* UserViewModel.swift */,
 			);
 			path = view_model;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				8E24639C276769BD0047455D /* DateConverter.swift in Sources */,
 				8E3E7436275CBBE000EC28A5 /* LAnotte_appApp.swift in Sources */,
 				8E24639A276650400047455D /* KeychainHelper.swift in Sources */,
+				8EA7B3972773A15100B34F65 /* UserViewModel.swift in Sources */,
 				8E3E746C275CD49B00EC28A5 /* Product_class.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,7 +582,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LAnotte_app/Preview Content\"";
-				DEVELOPMENT_TEAM = T5C42Q6E68;
+				DEVELOPMENT_TEAM = 4X5G9WSZ87;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -591,7 +595,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "claudiarecchia.LAnotte-app";
+				PRODUCT_BUNDLE_IDENTIFIER = it.demo.tesi.lanotteapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -621,7 +625,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "claudiarecchia.LAnotte-app";
+				PRODUCT_BUNDLE_IDENTIFIER = it.demo.tesi.lanotteapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

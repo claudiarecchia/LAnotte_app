@@ -10,6 +10,8 @@ import SwiftUI
 struct ProdottiView: View {
 	
 	@StateObject private var localiViewModel = LocaliViewModel()
+	@StateObject private var userViewModel = UserViewModel()
+	
 	@EnvironmentObject var order : Order
 	
 	@State private var searchString = ""
@@ -32,9 +34,38 @@ struct ProdottiView: View {
 									
 									LAnotteProductNameAndStampsView(item: item)
 									
-									Text(item.category)
-										.font(.subheadline)
-										.fontWeight(.light)
+									HStack{
+										Text(item.category)
+											.font(.subheadline)
+											.fontWeight(.light)
+										
+										Spacer()
+										
+										if userViewModel.isLogged {
+											if userViewModel.favouriteProducts.values.contains([item]) {
+
+												Button {
+													// userViewModel.removePreferredProduct(product: item)
+												} label: {
+													Image(systemName: "heart.fill")
+														.foregroundColor(.red)
+												}
+
+
+											}
+											else{
+												Button {
+													// user.AddFavouriteProduct(business: business, product: item)
+												} label: {
+													Image(systemName: "heart")
+														.foregroundColor(.red)
+												}
+
+												
+											}
+										}
+									}
+									
 									
 								}
 							}
@@ -56,7 +87,12 @@ struct ProdottiView: View {
 					}
 				}
 			}.onAppear {
+				userViewModel.LoggedIn()
 				localiViewModel.loadData(path: "allBusinesses", method: "GET")
+				Task{
+					await userViewModel.FavouriteProducts()
+				}
+				
 			}
 		}
 		
