@@ -13,8 +13,10 @@ struct ProdottiView: View {
 	@StateObject private var userViewModel = UserViewModel()
 	
 	@EnvironmentObject var order : Order
+	@EnvironmentObject var user : User
 	
 	@State private var searchString = ""
+	@State private var heart_count = false
 	
 	var body: some View {
 		VStack{
@@ -41,28 +43,37 @@ struct ProdottiView: View {
 										
 										Spacer()
 										
-										if userViewModel.isLogged {
-											if userViewModel.favouriteProducts.values.contains([item]) {
-												
+										if user.isLoggedIn {
+											
+											var list = userViewModel.favouriteProducts[business.business_name]
+											
+											if (list != nil && list!.contains(item)) {
 												Button {
 													// userViewModel.removePreferredProduct(product: item)
 												} label: {
 													Image(systemName: "heart.fill")
 														.foregroundColor(.red)
 												}
-												
-												
 											}
 											else{
 												Button {
-													// userViewModel.addFavouriteProduct(business: business, product: item)
+													user.AddFavouriteProduct(business: business, product: item)
+													Task{
+														await userViewModel.saveMyFavourites(user: user)
+														await userViewModel.FavouriteProducts(user: user)
+													}
 												} label: {
 													Image(systemName: "heart")
 														.foregroundColor(.red)
 												}
-												
-												
 											}
+											
+											
+											
+											
+											//}
+											
+											
 										}
 									}
 									
@@ -87,11 +98,13 @@ struct ProdottiView: View {
 					}
 				}
 			}.onAppear {
+				user.IsLoggedIn()
+				Task{
+					await userViewModel.FavouriteProducts(user: user)
+				}
 				// userViewModel.LoggedIn()
 				localiViewModel.loadData(path: "allBusinesses", method: "GET")
-				Task{
-					await userViewModel.FavouriteProducts()
-				}
+				
 				
 			}
 		}
@@ -116,6 +129,6 @@ struct ProductBusiness : View{
 
 struct ProdottiView_Previews: PreviewProvider {
 	static var previews: some View {
-		ProdottiView().environmentObject(Order())
+		ProdottiView().environmentObject(Order()).environmentObject(User())
 	}
 }

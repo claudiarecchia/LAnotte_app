@@ -9,28 +9,11 @@ import Foundation
 
 final class UserViewModel : ObservableObject {
 	
-	@Published var user: User = User()
 	@Published var favouriteProducts : [String : [Product]] = [:]
-	@Published var isLogged = false
 	
-	
-//	func LoggedIn(){
-//		let result = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
-//		print("check logged in")
-//		if result != nil {
-//			self.isLogged = true
-//			self.user.id = result!.id
-//			self.user.favourite_products = result!.favourite_products
-//		}
-//	}
-	
-	func FavouriteProducts() async {
-		if self.isLogged {
+	func FavouriteProducts(user : User) async {
+		if user.isLoggedIn {
 			// add user to request
-			let user = KeychainHelper.standard.read(service: "user",
-													account: "lanotte",
-													type: User.self)
-			
 			guard let encoded = try? JSONEncoder().encode(user) else{
 				print("Failed to encode user")
 				return
@@ -45,10 +28,12 @@ final class UserViewModel : ObservableObject {
 				let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 				print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 				if let decoded = try? JSONDecoder().decode([User].self, from: data){
-					
 					DispatchQueue.main.async {
 						if decoded.count > 0 {
 							self.favouriteProducts = decoded[0].favourite_products!
+							user.favourite_products = self.favouriteProducts
+							// print(user.favourite_products)
+							// user!.setFavProducts(products : self.favouriteProducts)
 						}
 					}
 				}
@@ -58,27 +43,47 @@ final class UserViewModel : ObservableObject {
 			
 		}
 		
-		func addFavouriteProduct(business: Business, product : Product) {
-			// add product to favourites
-
-			// add user to request
-			let user = KeychainHelper.standard.read(service: "user",
-													account: "lanotte",
-													type: User.self)
-			
-			guard let encoded = try? JSONEncoder().encode(user) else{
-				print("Failed to encode user")
-				return
-			}
-			
-			
-		}
-		
-		
-		
 	}
 	
+	func saveMyFavourites(user: User) async {
+		// add user to request
+		guard let encoded = try? JSONEncoder().encode(user) else{
+			print("Failed to encode user")
+			return
+		}
+		let url = URL(string: base_server_uri + "saveFavourites")!
+		var request = URLRequest(url: url)
+		request.setValue("application/json", forHTTPHeaderField: "Content-type")
+		request.httpMethod = "POST"
+		do{
+			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			if let decoded = try? JSONDecoder().decode([User].self, from: data){
+				DispatchQueue.main.async {
+					if decoded.count > 0 {
+						self.favouriteProducts = decoded[0].favourite_products!
+						user.favourite_products = self.favouriteProducts
+					}
+				}
+			}
+		} catch {
+			print("Checkout failed")
+		}
+	}
 	
+	//		func addFavouriteProduct(user: User, business: Business, product : Product) {
+	//			// add product to favourites
+	//
+	//			// add user to request
+	//			let user = KeychainHelper.standard.read(service: "user",
+	//													account: "lanotte",
+	//													type: User.self)
+	//
+	//			guard let encoded = try? JSONEncoder().encode(user) else{
+	//				print("Failed to encode user")
+	//				return
+	//			}
 	
 	
 }
+
