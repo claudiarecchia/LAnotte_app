@@ -49,7 +49,11 @@ struct ProdottiView: View {
 											
 											if (list != nil && list!.contains(item)) {
 												Button {
-													// userViewModel.removePreferredProduct(product: item)
+													user.removeFavouriteProduct(business: business, product: item)
+													Task{
+														await userViewModel.saveMyFavourites(user: user)
+														await userViewModel.FavouriteProducts(user: user)
+													}
 												} label: {
 													Image(systemName: "heart.fill")
 														.foregroundColor(.red)
@@ -67,13 +71,6 @@ struct ProdottiView: View {
 														.foregroundColor(.red)
 												}
 											}
-											
-											
-											
-											
-											//}
-											
-											
 										}
 									}
 									
@@ -102,10 +99,7 @@ struct ProdottiView: View {
 				Task{
 					await userViewModel.FavouriteProducts(user: user)
 				}
-				// userViewModel.LoggedIn()
 				localiViewModel.loadData(path: "allBusinesses", method: "GET")
-				
-				
 			}
 		}
 		

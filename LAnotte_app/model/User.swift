@@ -65,28 +65,34 @@ class User: Codable, Identifiable, ObservableObject {
 	
 	func setFavProducts(products: [String : [Product]]){
 		self.favourite_products = products
-		print("UPATED: ", self.favourite_products)
+	}
+	
+	func removeFavouriteProduct(business : Business, product : Product){
+		if let index = self.favourite_products![business.business_name]!.firstIndex(of: product){
+			self.favourite_products![business.business_name]!.remove(at: index)
+		}
 	}
 	
 	func AddFavouriteProduct(business : Business, product : Product){
-		print("my fav products ", self.favourite_products)
 		var newList : [Product] = []
-		// newList = favourite_products![business.business_name]!.append(product)
-		// for el in favourite_products![business.business_name]!{
+
+		if self.favourite_products![business.business_name] != nil {
+			for el in self.favourite_products![business.business_name]!{
+				newList.append(el)
+			}
+		}
 		
-		for el in self.favourite_products![business.business_name]!{
-			newList.append(el)
+		// business_name to add as key
+		else{
+			self.favourite_products![business.business_name] = newList
 		}
 		newList.append(product)
-		
 		if let oldValue = self.favourite_products!.updateValue(newList, forKey: business.business_name) {
-			print("The old value of \(oldValue) was replaced with a new one.")
+			// print("The old value of \(oldValue) was replaced with a new one.")
 		} else {
-			print("No value was found in the dictionary for that key.")
+			// print("No value was found in the dictionary for that key.")
 		}
-		for el in self.favourite_products!{
-			print(el)
-		}
+
 	}
 	
 	func encode(to encoder: Encoder) throws {

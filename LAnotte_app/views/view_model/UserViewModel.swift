@@ -26,14 +26,13 @@ final class UserViewModel : ObservableObject {
 			
 			do{
 				let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-				print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 				if let decoded = try? JSONDecoder().decode([User].self, from: data){
 					DispatchQueue.main.async {
 						if decoded.count > 0 {
 							self.favouriteProducts = decoded[0].favourite_products!
-							user.favourite_products = self.favouriteProducts
-							// print(user.favourite_products)
-							// user!.setFavProducts(products : self.favouriteProducts)
+							// user.favourite_products = self.favouriteProducts
+							user.setFavProducts(products: self.favouriteProducts)
 						}
 					}
 				}
@@ -57,12 +56,13 @@ final class UserViewModel : ObservableObject {
 		request.httpMethod = "POST"
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decoded = try? JSONDecoder().decode([User].self, from: data){
 				DispatchQueue.main.async {
 					if decoded.count > 0 {
 						self.favouriteProducts = decoded[0].favourite_products!
-						user.favourite_products = self.favouriteProducts
+						// user.favourite_products = self.favouriteProducts
+						user.setFavProducts(products: self.favouriteProducts)
 					}
 				}
 			}
@@ -70,20 +70,5 @@ final class UserViewModel : ObservableObject {
 			print("Checkout failed")
 		}
 	}
-	
-	//		func addFavouriteProduct(user: User, business: Business, product : Product) {
-	//			// add product to favourites
-	//
-	//			// add user to request
-	//			let user = KeychainHelper.standard.read(service: "user",
-	//													account: "lanotte",
-	//													type: User.self)
-	//
-	//			guard let encoded = try? JSONEncoder().encode(user) else{
-	//				print("Failed to encode user")
-	//				return
-	//			}
-	
-	
 }
 
