@@ -24,9 +24,8 @@ struct ArchivioView: View {
 						.padding(.top, 2)
 					ZStack{
 						if ordersViewModel.isLoading{ ProgressView() }
-						
-						List(ordersViewModel.orders, id: \.id){ archived_order in
-							ForEach(Array(Set(archived_order.products))) { product in
+						else {
+							List(ordersViewModel.orders, id: \.id){ archived_order in
 								VStack(alignment: .leading, spacing: 4){
 									
 									HStack(spacing: 5){
@@ -44,13 +43,15 @@ struct ArchivioView: View {
 											.fontWeight(.light)
 									}
 									
-									HStack{
-										Text("\(archived_order.getQuantityProductInOrder(product: product))x")
-										Text(product.name)
-										Text("€\(String(format: "%.2f", product.price))")
+									ForEach(Array(Set(archived_order.products)).sorted()) { product in
+										HStack{
+											Text("\(archived_order.getQuantityProductInOrder(product: product))x")
+											Text(product.name)
+											Text("€\(String(format: "%.2f", product.price))")
+										}
+										.padding(.top, 1)
+										.padding(.bottom, 1)
 									}
-									.padding(.top, 3)
-									.padding(.bottom, 3)
 									
 									Text("Totale €\((String(format: "%.2f", archived_order.getTotal())))")
 									
@@ -71,6 +72,8 @@ struct ArchivioView: View {
 								}
 							}
 						}
+						
+						
 					}
 				}
 				.alert("Attenzione! Ordine non modificato", isPresented: $order.showingAlertOtherBusiness) {
@@ -103,7 +106,6 @@ struct ArchivioView: View {
 		.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 		.onAppear {
 			Task{
-				// ordersViewModel.LoggedIn()
 				user.IsLoggedIn()
 				await ordersViewModel.loadData(path: "archive", method: "POST", user: user)
 			}

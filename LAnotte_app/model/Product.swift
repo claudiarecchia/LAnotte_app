@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct Product: Identifiable, Codable, Equatable, Hashable {
+struct Product: Identifiable, Codable, Equatable, Hashable, Comparable {
+	
+	static func < (lhs: Product, rhs: Product) -> Bool {
+		lhs.name < rhs.name
+	}
+	
     
     let id: String
     let name: String

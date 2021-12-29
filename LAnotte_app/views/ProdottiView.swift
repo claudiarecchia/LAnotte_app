@@ -44,33 +44,32 @@ struct ProdottiView: View {
 										Spacer()
 										
 										if user.isLoggedIn {
-											
-											var list = userViewModel.favouriteProducts[business.business_name]
-											
-											if (list != nil && list!.contains(item)) {
-												Button {
-													user.removeFavouriteProduct(business: business, product: item)
-													Task{
-														await userViewModel.saveMyFavourites(user: user)
-														await userViewModel.FavouriteProducts(user: user)
+												let list = userViewModel.favouriteProducts[business.business_name]
+												if (list != nil && list!.contains(item)) {
+													Button {
+														user.removeFavouriteProduct(business: business, product: item)
+														Task{
+															await userViewModel.saveMyFavourites(user: user)
+															await userViewModel.FavouriteProducts(user: user)
+														}
+													} label: {
+														Image(systemName: "heart.fill")
+															.foregroundColor(.red)
 													}
-												} label: {
-													Image(systemName: "heart.fill")
-														.foregroundColor(.red)
 												}
-											}
-											else{
-												Button {
-													user.AddFavouriteProduct(business: business, product: item)
-													Task{
-														await userViewModel.saveMyFavourites(user: user)
-														await userViewModel.FavouriteProducts(user: user)
+												else{
+													Button {
+														user.AddFavouriteProduct(business: business, product: item)
+														Task{
+															await userViewModel.saveMyFavourites(user: user)
+															await userViewModel.FavouriteProducts(user: user)
+														}
+													} label: {
+														Image(systemName: "heart")
+															.foregroundColor(.red)
 													}
-												} label: {
-													Image(systemName: "heart")
-														.foregroundColor(.red)
 												}
-											}
+											// AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
 										}
 									}
 									

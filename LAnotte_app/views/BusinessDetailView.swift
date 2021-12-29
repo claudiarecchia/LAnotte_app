@@ -10,6 +10,10 @@ import SwiftUI
 struct BusinessDetailView: View {
 	
 	@EnvironmentObject var order: Order
+	@EnvironmentObject var user: User
+	
+	@StateObject private var userViewModel = UserViewModel()
+	
 	@State var business: Business = Business.defaultBusiness
 	@Environment(\.colorScheme) var colorScheme
 	
@@ -53,9 +57,47 @@ struct BusinessDetailView: View {
 							VStack(alignment: .leading, spacing: 3){
 								LAnotteProductNameAndStampsView(item: item)
 								
-								Text(item.category)
-									.font(.subheadline)
-									.fontWeight(.light)
+								HStack{
+									Text(item.category)
+										.font(.subheadline)
+										.fontWeight(.light)
+									
+									Spacer()
+									
+									if user.isLoggedIn {
+											let list = userViewModel.favouriteProducts[business.business_name]
+											if (list != nil && list!.contains(item)) {
+												Button {
+													user.removeFavouriteProduct(business: business, product: item)
+													Task{
+														await userViewModel.saveMyFavourites(user: user)
+														await userViewModel.FavouriteProducts(user: user)
+													}
+												} label: {
+													Image(systemName: "heart.fill")
+														.foregroundColor(.red)
+												}
+											}
+											else{
+												Button {
+													user.AddFavouriteProduct(business: business, product: item)
+													Task{
+														await userViewModel.saveMyFavourites(user: user)
+														await userViewModel.FavouriteProducts(user: user)
+													}
+												} label: {
+													Image(systemName: "heart")
+														.foregroundColor(.red)
+												}
+											}
+										// AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
+									}
+									
+								}
+								
+								
+								
+						
 							}
 						}
 						
@@ -76,10 +118,15 @@ struct BusinessDetailView: View {
 			}.hiddenNavigationBarStyle()
 				.alert("Attenzione! Prodotto non aggiunto", isPresented: $order.showingAlertOtherBusiness) {
 					Button("OK") {
-						order.emptyOrder()
 					}
 			 } message: {
 				 Text(order.alertOtherBusinessMessage)
+			 }
+			 .onAppear{
+				 user.IsLoggedIn()
+				 Task{
+					 await userViewModel.FavouriteProducts(user: user)
+				 }
 			 }
 				
 		}
@@ -110,6 +157,6 @@ struct BusinessRatingStarsView : View {
 
 struct BusinessDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		BusinessDetailView(business: Business.defaultBusiness).environmentObject(Order())
+		BusinessDetailView(business: Business.defaultBusiness).environmentObject(Order()).environmentObject(User())
 	}
 }

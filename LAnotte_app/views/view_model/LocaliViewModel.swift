@@ -38,5 +38,15 @@ final class LocaliViewModel : ObservableObject {
         
         task.resume()
     }
+	
+	func getBusinessObjectFromString(business_name : String) -> Business {
+		var result : Business = Business.defaultBusiness
+		for business in businesses {
+			if business.business_name == business_name {
+				result = business
+			}
+		}
+		return result
+	}
     
 }

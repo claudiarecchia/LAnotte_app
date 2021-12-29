@@ -31,7 +31,6 @@ final class UserViewModel : ObservableObject {
 					DispatchQueue.main.async {
 						if decoded.count > 0 {
 							self.favouriteProducts = decoded[0].favourite_products!
-							// user.favourite_products = self.favouriteProducts
 							user.setFavProducts(products: self.favouriteProducts)
 						}
 					}
@@ -61,7 +60,6 @@ final class UserViewModel : ObservableObject {
 				DispatchQueue.main.async {
 					if decoded.count > 0 {
 						self.favouriteProducts = decoded[0].favourite_products!
-						// user.favourite_products = self.favouriteProducts
 						user.setFavProducts(products: self.favouriteProducts)
 					}
 				}

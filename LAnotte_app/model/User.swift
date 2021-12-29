@@ -80,13 +80,18 @@ class User: Codable, Identifiable, ObservableObject {
 			for el in self.favourite_products![business.business_name]!{
 				newList.append(el)
 			}
+			
+			if !(self.favourite_products![business.business_name]!.contains(product)){
+				newList.append(product)
+			}
 		}
 		
 		// business_name to add as key
 		else{
 			self.favourite_products![business.business_name] = newList
+			newList.append(product)
 		}
-		newList.append(product)
+		
 		if let oldValue = self.favourite_products!.updateValue(newList, forKey: business.business_name) {
 			// print("The old value of \(oldValue) was replaced with a new one.")
 		} else {
