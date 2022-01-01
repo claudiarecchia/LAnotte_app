@@ -25,7 +25,6 @@ final class LocaliViewModel : ObservableObject {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            // print(data)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
             do {
                 let response = try? JSONDecoder().decode([Business].self, from: data)

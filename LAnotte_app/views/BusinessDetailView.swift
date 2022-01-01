@@ -12,8 +12,6 @@ struct BusinessDetailView: View {
 	@EnvironmentObject var order: Order
 	@EnvironmentObject var user: User
 	
-	@StateObject private var userViewModel = UserViewModel()
-	
 	@State var business: Business = Business.defaultBusiness
 	@Environment(\.colorScheme) var colorScheme
 	
@@ -65,13 +63,13 @@ struct BusinessDetailView: View {
 									Spacer()
 									
 									if user.isLoggedIn {
-											let list = userViewModel.favouriteProducts[business.business_name]
+											let list = user.favourite_products?[business.business_name]
 											if (list != nil && list!.contains(item)) {
 												Button {
 													user.removeFavouriteProduct(business: business, product: item)
 													Task{
-														await userViewModel.saveMyFavourites(user: user)
-														await userViewModel.FavouriteProducts(user: user)
+														await user.saveMyFavourites(user: user)
+														await user.FavouriteProducts(user: user)
 													}
 												} label: {
 													Image(systemName: "heart.fill")
@@ -82,8 +80,8 @@ struct BusinessDetailView: View {
 												Button {
 													user.AddFavouriteProduct(business: business, product: item)
 													Task{
-														await userViewModel.saveMyFavourites(user: user)
-														await userViewModel.FavouriteProducts(user: user)
+														await user.saveMyFavourites(user: user)
+														await user.FavouriteProducts(user: user)
 													}
 												} label: {
 													Image(systemName: "heart")
@@ -122,13 +120,6 @@ struct BusinessDetailView: View {
 			 } message: {
 				 Text(order.alertOtherBusinessMessage)
 			 }
-			 .onAppear{
-				 user.IsLoggedIn()
-				 Task{
-					 await userViewModel.FavouriteProducts(user: user)
-				 }
-			 }
-				
 		}
 		
 	}

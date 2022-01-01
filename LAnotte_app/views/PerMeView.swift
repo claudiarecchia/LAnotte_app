@@ -12,7 +12,6 @@ import AuthenticationServices
 struct PerMeView: View {
 	
 	@StateObject private var ordersViewModel = OrdersViewModel()
-	@StateObject private var userViewModel = UserViewModel()
 	@StateObject private var localiViewModel = LocaliViewModel()
 	
 	@EnvironmentObject var user: User
@@ -37,9 +36,9 @@ struct PerMeView: View {
 						.padding(.top, 2)
 					
 					VStack(alignment: .leading){
-								
-						List(Array(userViewModel.favouriteProducts.keys).sorted(), id: \.self) { business in
-							ForEach(userViewModel.favouriteProducts[business]!) { item in
+						
+						List(Array(user.favourite_products!.keys).sorted(), id: \.self) { business in
+							ForEach(user.favourite_products![business]!) { item in
 									
 									var business = localiViewModel.getBusinessObjectFromString(business_name: business)
 										
@@ -60,7 +59,7 @@ struct PerMeView: View {
 													Spacer()
 
 													if user.isLoggedIn {
-														AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
+														AddRemoveFavouriteView(business: business, item: item, user: user)
 													}
 												}
 											}
@@ -154,10 +153,10 @@ struct PerMeView: View {
 			
 		}
 		.onAppear {
-			user.IsLoggedIn()
-			Task{
-				await userViewModel.FavouriteProducts(user: user)
-			}
+//			user.IsLoggedIn()
+//			Task{
+//				await userViewModel.FavouriteProducts(user: user)
+//			}
 			localiViewModel.loadData(path: "allBusinesses", method: "GET")
 		}
 	}

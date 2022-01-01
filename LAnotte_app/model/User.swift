@@ -16,7 +16,6 @@ class User: Codable, Identifiable, ObservableObject {
     var id: String?
 //    var email: String?
 //    var password: String?
-//	var favourite_products : [String: [Product]]?
 	
 	@Published var isLoggedIn : Bool = false
 	@Published var favourite_products : [String: [Product]]?
@@ -32,8 +31,7 @@ class User: Codable, Identifiable, ObservableObject {
 				//self.favourite_products = user!.favourite_products
 			//}
 		}
-		print(self.isLoggedIn)
-		print(self.favourite_products)
+		print("user is logged in: " , self.isLoggedIn)
 		
 	}
 	
@@ -73,6 +71,7 @@ class User: Codable, Identifiable, ObservableObject {
 		}
 	}
 	
+	// MARK: - API CALLS
 	func AddFavouriteProduct(business : Business, product : Product){
 		var newList : [Product] = []
 
@@ -100,6 +99,63 @@ class User: Codable, Identifiable, ObservableObject {
 
 	}
 	
+	func FavouriteProducts(user : User) async {
+		if user.isLoggedIn {
+			// add user to request
+			guard let encoded = try? JSONEncoder().encode(user) else{
+				print("Failed to encode user")
+				return
+			}
+			
+			let url = URL(string: base_server_uri + "getUser")!
+			var request = URLRequest(url: url)
+			request.setValue("application/json", forHTTPHeaderField: "Content-type")
+			request.httpMethod = "POST"
+			
+			do{
+				let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+				if let decoded = try? JSONDecoder().decode([User].self, from: data){
+					DispatchQueue.main.async {
+						if decoded.count > 0 {
+							self.favourite_products = decoded[0].favourite_products!
+						}
+					}
+				}
+			} catch {
+				print("Checkout failed")
+			}
+			
+		}
+		
+	}
+	
+	func saveMyFavourites(user: User) async {
+		// add user to request
+		guard let encoded = try? JSONEncoder().encode(user) else{
+			print("Failed to encode user")
+			return
+		}
+		let url = URL(string: base_server_uri + "saveFavourites")!
+		var request = URLRequest(url: url)
+		request.setValue("application/json", forHTTPHeaderField: "Content-type")
+		request.httpMethod = "POST"
+		do{
+			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			if let decoded = try? JSONDecoder().decode([User].self, from: data){
+				DispatchQueue.main.async {
+					if decoded.count > 0 {
+						self.favourite_products = decoded[0].favourite_products!
+					}
+				}
+			}
+		} catch {
+			print("Checkout failed")
+		}
+	}
+	
+	// MARK: - CODABLE PROTOCOL
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainTabView: View {
 	
+	@EnvironmentObject var user : User
+	
 	var body: some View {
 		
 		TabView{
@@ -35,6 +37,13 @@ struct MainTabView: View {
 					Image(systemName: "bag")
 					Text("Ordine")
 				}
+		}.onAppear{
+			user.IsLoggedIn()
+			if user.isLoggedIn {
+				Task {
+					await user.FavouriteProducts(user: user)
+				}
+			}
 		}
 	}
 }

@@ -10,7 +10,6 @@ import SwiftUI
 struct ProdottiView: View {
 	
 	@StateObject private var localiViewModel = LocaliViewModel()
-	@StateObject private var userViewModel = UserViewModel()
 	
 	@EnvironmentObject var order : Order
 	@EnvironmentObject var user : User
@@ -44,13 +43,13 @@ struct ProdottiView: View {
 										Spacer()
 										
 										if user.isLoggedIn {
-												let list = userViewModel.favouriteProducts[business.business_name]
+												let list = user.favourite_products?[business.business_name]
 												if (list != nil && list!.contains(item)) {
 													Button {
 														user.removeFavouriteProduct(business: business, product: item)
 														Task{
-															await userViewModel.saveMyFavourites(user: user)
-															await userViewModel.FavouriteProducts(user: user)
+															await user.saveMyFavourites(user: user)
+															await user.FavouriteProducts(user: user)
 														}
 													} label: {
 														Image(systemName: "heart.fill")
@@ -61,8 +60,8 @@ struct ProdottiView: View {
 													Button {
 														user.AddFavouriteProduct(business: business, product: item)
 														Task{
-															await userViewModel.saveMyFavourites(user: user)
-															await userViewModel.FavouriteProducts(user: user)
+															await user.saveMyFavourites(user: user)
+															await user.FavouriteProducts(user: user)
 														}
 													} label: {
 														Image(systemName: "heart")
@@ -94,10 +93,6 @@ struct ProdottiView: View {
 					}
 				}
 			}.onAppear {
-				user.IsLoggedIn()
-				Task{
-					await userViewModel.FavouriteProducts(user: user)
-				}
 				localiViewModel.loadData(path: "allBusinesses", method: "GET")
 			}
 		}

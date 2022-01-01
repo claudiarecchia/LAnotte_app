@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
+import PassKit
 
 struct OrderView: View {
-
+	
 	@StateObject private var ordersViewModel = OrdersViewModel()
-	@StateObject private var userViewModel = UserViewModel()
 	@EnvironmentObject var order: Order
 	@EnvironmentObject var user: User
 	
@@ -26,7 +26,7 @@ struct OrderView: View {
 						
 						Text("Il mio ordine da")
 							.font(.title3)
-							
+						
 						Text(order.business.business_name)
 							.font(.title2)
 							.bold()
@@ -55,31 +55,32 @@ struct OrderView: View {
 									Spacer()
 									
 									if user.isLoggedIn {
-										let list = userViewModel.favouriteProducts[order.business.business_name]
-											if (list != nil && list!.contains(item)) {
-												Button {
-													user.removeFavouriteProduct(business: order.business, product: item)
-													Task{
-														await userViewModel.saveMyFavourites(user: user)
-														await userViewModel.FavouriteProducts(user: user)
-													}
-												} label: {
-													Image(systemName: "heart.fill")
-														.foregroundColor(.red)
+										// let list = userViewModel.favouriteProducts[order.business.business_name]
+										let list = user.favourite_products?[order.business.business_name]
+										if (list != nil && list!.contains(item)) {
+											Button {
+												user.removeFavouriteProduct(business: order.business, product: item)
+												Task{
+													await user.saveMyFavourites(user: user)
+													await user.FavouriteProducts(user: user)
 												}
+											} label: {
+												Image(systemName: "heart.fill")
+													.foregroundColor(.red)
 											}
-											else{
-												Button {
-													user.AddFavouriteProduct(business: order.business, product: item)
-													Task{
-														await userViewModel.saveMyFavourites(user: user)
-														await userViewModel.FavouriteProducts(user: user)
-													}
-												} label: {
-													Image(systemName: "heart")
-														.foregroundColor(.red)
+										}
+										else{
+											Button {
+												user.AddFavouriteProduct(business: order.business, product: item)
+												Task{
+													await user.saveMyFavourites(user: user)
+													await user.FavouriteProducts(user: user)
 												}
+											} label: {
+												Image(systemName: "heart")
+													.foregroundColor(.red)
 											}
+										}
 									}
 									
 								}
@@ -101,42 +102,51 @@ struct OrderView: View {
 						}
 					}
 				}
-			
+				
 				Section{
-					Button {
-						Task{
-							await ordersViewModel.placeOrder(order: order, user: user)
+					VStack{
+						Button {
+							Task{
+								await ordersViewModel.placeOrder(order: order, user: user)
+							}
+						} label: {
+							Text("Conferma ordine € \((String(format: "%.2f", order.getTotal())))")
+								.padding()
+								.foregroundColor(.white)
+								.background(.blue)
+								.cornerRadius(8)
 						}
-					} label: {
-						Text("Conferma ordine € \((String(format: "%.2f", order.getTotal())))")
-							.padding()
-							.foregroundColor(.white)
-							.background(.blue)
-							.cornerRadius(8)
+						.frame(maxWidth: .infinity, alignment: .center)
+						.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
+						
+						
+						let applePay = ApplePayManager(itemCost: order.getTotal(), order: order)
+						iPaymentButton(type: .buy, style: .black) {
+							applePay.buyBtnTapped()
+						}
 					}
-					.frame(maxWidth: .infinity, alignment: .center)
-					.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
+					
 				}
 			}
 			.alert("Ordine confermato", isPresented: $ordersViewModel.showingConfirmation) {
 				Button("OK") {
 					order.emptyOrder()
 				}
-		 } message: {
-			 Text(ordersViewModel.confirmationMessage)
-		 }
-		 .onAppear{
-			 user.IsLoggedIn()
-			 Task{
-				 await userViewModel.FavouriteProducts(user: user)
-			 }
-		 }
+			} message: {
+				Text(ordersViewModel.confirmationMessage)
+			}
+//			.onAppear{
+//				user.IsLoggedIn()
+//				Task{
+//					await user.FavouriteProducts(user: user)
+//				}
+//			}
 		}
 		else {
 			Text("Inserisci prodotti nell'ordine per visualizzarli qui")
-			                .padding()
-			                .multilineTextAlignment(.center)
-			                .foregroundColor(.gray)
+				.padding()
+				.multilineTextAlignment(.center)
+				.foregroundColor(.gray)
 		}
 	}
 }
