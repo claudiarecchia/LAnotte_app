@@ -20,7 +20,6 @@ struct AddRemoveFavouriteView: View {
 				user.removeFavouriteProduct(business: business, product: item)
 				Task{
 					await user.saveMyFavourites(user: user)
-					await user.FavouriteProducts(user: user)
 				}
 			} label: {
 				Image(systemName: "heart.fill")
@@ -32,7 +31,6 @@ struct AddRemoveFavouriteView: View {
 				user.AddFavouriteProduct(business: business, product: item)
 				Task{
 					await user.saveMyFavourites(user: user)
-					await user.FavouriteProducts(user: user)
 				}
 			} label: {
 				Image(systemName: "heart")

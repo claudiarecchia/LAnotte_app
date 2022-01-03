@@ -49,24 +49,24 @@ struct ProdottiView: View {
 														user.removeFavouriteProduct(business: business, product: item)
 														Task{
 															await user.saveMyFavourites(user: user)
-															await user.FavouriteProducts(user: user)
 														}
 													} label: {
 														Image(systemName: "heart.fill")
 															.foregroundColor(.red)
 													}
+													.buttonStyle(PlainButtonStyle())
 												}
 												else{
 													Button {
 														user.AddFavouriteProduct(business: business, product: item)
 														Task{
 															await user.saveMyFavourites(user: user)
-															await user.FavouriteProducts(user: user)
 														}
 													} label: {
 														Image(systemName: "heart")
 															.foregroundColor(.red)
 													}
+													.buttonStyle(PlainButtonStyle())
 												}
 											// AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
 										}

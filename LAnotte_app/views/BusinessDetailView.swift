@@ -69,7 +69,6 @@ struct BusinessDetailView: View {
 													user.removeFavouriteProduct(business: business, product: item)
 													Task{
 														await user.saveMyFavourites(user: user)
-														await user.FavouriteProducts(user: user)
 													}
 												} label: {
 													Image(systemName: "heart.fill")
@@ -81,7 +80,6 @@ struct BusinessDetailView: View {
 													user.AddFavouriteProduct(business: business, product: item)
 													Task{
 														await user.saveMyFavourites(user: user)
-														await user.FavouriteProducts(user: user)
 													}
 												} label: {
 													Image(systemName: "heart")
@@ -121,7 +119,6 @@ struct BusinessDetailView: View {
 				 Text(order.alertOtherBusinessMessage)
 			 }
 		}
-		
 	}
 }
 

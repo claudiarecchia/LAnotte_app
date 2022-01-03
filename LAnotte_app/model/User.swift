@@ -10,7 +10,7 @@ import Foundation
 class User: Codable, Identifiable, ObservableObject {
 	
 	enum CodingKeys: CodingKey{
-		case id, favourite_products
+		case id, favourite_products, ratings
 	}
 	
     var id: String?
@@ -19,27 +19,26 @@ class User: Codable, Identifiable, ObservableObject {
 	
 	@Published var isLoggedIn : Bool = false
 	@Published var favourite_products : [String: [Product]]?
+	@Published var ratings : [String: Int]?
 	
 	func IsLoggedIn(){
 		let user = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
 		print("check logged in", user)
 		if user != nil {
 			print("user not nil")
-			// DispatchQueue.main.async {
 				self.isLoggedIn = true
 				self.id = user!.id
-				//self.favourite_products = user!.favourite_products
-			//}
 		}
 		print("user is logged in: " , self.isLoggedIn)
 		
 	}
 	
-	init(id: String, fav_prod: [String: [Product]]){
+	init(id: String, fav_prod: [String: [Product]], ratings : [String : Int]){
         self.id = id
 //        self.email = email
 //        self.password = password
 		self.favourite_products = fav_prod
+		self.ratings = ratings
     }
 	
 	// if user is a guest (not logged)
@@ -51,8 +50,11 @@ class User: Codable, Identifiable, ObservableObject {
 	
 	func login(user : User){
 		KeychainHelper.standard.save(user, service: "user", account: "lanotte")
-		self.id = user.id
-		self.favourite_products = user.favourite_products
+		DispatchQueue.main.async {
+			self.id = user.id
+			self.favourite_products = user.favourite_products
+			self.ratings = user.ratings
+		}
 	}
 	
 	func logout(){
@@ -69,6 +71,10 @@ class User: Codable, Identifiable, ObservableObject {
 		if let index = self.favourite_products![business.business_name]!.firstIndex(of: product){
 			self.favourite_products![business.business_name]!.remove(at: index)
 		}
+	}
+	
+	func setRating(order : Order, rating : Int){
+		self.ratings![order.business.business_name] = rating
 	}
 	
 	// MARK: - API CALLS
@@ -119,6 +125,7 @@ class User: Codable, Identifiable, ObservableObject {
 					DispatchQueue.main.async {
 						if decoded.count > 0 {
 							self.favourite_products = decoded[0].favourite_products!
+							self.ratings = decoded[0].ratings!
 						}
 					}
 				}
@@ -128,6 +135,31 @@ class User: Codable, Identifiable, ObservableObject {
 			
 		}
 		
+	}
+	
+	func saveMyRating(user : User) async {
+		// add user to request
+		guard let encoded = try? JSONEncoder().encode(user) else{
+			print("Failed to encode user")
+			return
+		}
+		let url = URL(string: base_server_uri + "saveRatings")!
+		var request = URLRequest(url: url)
+		request.setValue("application/json", forHTTPHeaderField: "Content-type")
+		request.httpMethod = "POST"
+		do{
+			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			if let decoded = try? JSONDecoder().decode([User].self, from: data){
+				DispatchQueue.main.async {
+					if decoded.count > 0 {
+						self.ratings = decoded[0].ratings!
+					}
+				}
+			}
+		} catch {
+			print("Checkout failed")
+		}
 	}
 	
 	func saveMyFavourites(user: User) async {
@@ -161,6 +193,7 @@ class User: Codable, Identifiable, ObservableObject {
 		
 		try container.encode(id, forKey: .id)
 		try container.encode(favourite_products, forKey: .favourite_products)
+		try container.encode(ratings, forKey: .ratings)
 	}
 	
 	required init(from decoder: Decoder) throws {
@@ -168,6 +201,7 @@ class User: Codable, Identifiable, ObservableObject {
 		
 		id = try container.decode(String.self, forKey: .id)
 		favourite_products = try container.decode([String : [Product]].self, forKey: .favourite_products)
+		ratings = try container.decode([String : Int].self, forKey: .ratings)
 	}
 	
 }

@@ -35,7 +35,7 @@ final class OrdersViewModel : ObservableObject {
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 				DispatchQueue.main.async {
 					self.isLoading = false
 					self.orders = decodedOrder
@@ -67,7 +67,7 @@ final class OrdersViewModel : ObservableObject {
 		
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-			print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
 				
 				if user.id == nil {
