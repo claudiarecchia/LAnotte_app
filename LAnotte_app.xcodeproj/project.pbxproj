@@ -14,6 +14,7 @@
 		8E3BAD65277C7463004756FB /* AddRemoveFavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3BAD64277C7463004756FB /* AddRemoveFavouriteView.swift */; };
 		8E3BAD67277CD667004756FB /* ApplePayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3BAD66277CD667004756FB /* ApplePayManager.swift */; };
 		8E3BAD69277CE1DD004756FB /* PaymentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3BAD68277CE1DD004756FB /* PaymentButton.swift */; };
+		8E3BAD6C27837D11004756FB /* GrowingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3BAD6B27837D11004756FB /* GrowingButton.swift */; };
 		8E3E7436275CBBE000EC28A5 /* LAnotte_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7435275CBBE000EC28A5 /* LAnotte_appApp.swift */; };
 		8E3E7438275CBBE000EC28A5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7437275CBBE000EC28A5 /* MainTabView.swift */; };
 		8E3E743A275CBBE300EC28A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E7439275CBBE300EC28A5 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		8E3BAD64277C7463004756FB /* AddRemoveFavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRemoveFavouriteView.swift; sourceTree = "<group>"; };
 		8E3BAD66277CD667004756FB /* ApplePayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayManager.swift; sourceTree = "<group>"; };
 		8E3BAD68277CE1DD004756FB /* PaymentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentButton.swift; sourceTree = "<group>"; };
+		8E3BAD6B27837D11004756FB /* GrowingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingButton.swift; sourceTree = "<group>"; };
 		8E3E7432275CBBE000EC28A5 /* LAnotte_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAnotte_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E3E7435275CBBE000EC28A5 /* LAnotte_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotte_appApp.swift; sourceTree = "<group>"; };
 		8E3E7437275CBBE000EC28A5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8E3BAD6A27837CDC004756FB /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8E3BAD6B27837D11004756FB /* GrowingButton.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		8E3E7429275CBBE000EC28A5 = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				8E246395276373A30047455D /* LAnotte_app.entitlements */,
+				8E3BAD6A27837CDC004756FB /* extensions */,
 				8E3E7478275D1E0300EC28A5 /* data_utility */,
 				8E3E7473275CDB6300EC28A5 /* views */,
 				8E3E7467275CD43C00EC28A5 /* model */,
@@ -405,6 +416,7 @@
 			files = (
 				8E3E7438275CBBE000EC28A5 /* MainTabView.swift in Sources */,
 				8E3BAD67277CD667004756FB /* ApplePayManager.swift in Sources */,
+				8E3BAD6C27837D11004756FB /* GrowingButton.swift in Sources */,
 				8EE7124C277249E200422F32 /* LAnotteSearchBar.swift in Sources */,
 				8E3E7480275E187A00EC28A5 /* Product.swift in Sources */,
 				8E3E7477275CDC6200EC28A5 /* ProdottiView.swift in Sources */,

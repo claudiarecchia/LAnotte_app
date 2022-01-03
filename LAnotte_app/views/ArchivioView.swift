@@ -66,11 +66,13 @@ struct ArchivioView: View {
 										VStack{
 											Text("La mia valutazione per \(archived_order.business.business_name):")
 												.multilineTextAlignment(.center)
-											//RatingStarsView(user: user, order: archived_order)
+											
 											let keyExists = user.ratings![archived_order.business.business_name] != nil
 											if keyExists{
 												HStack{
-													ForEach(0..<Int(user.ratings![archived_order.business.business_name]!)) { index in
+													var business_rating = user.ratings![archived_order.business.business_name]!
+
+													ForEach(0..<business_rating, id: \.self) { index in
 														Button {
 															user.setRating(order: archived_order, rating: index+1)
 															Task{
@@ -79,10 +81,10 @@ struct ArchivioView: View {
 														} label: {
 															Image(systemName: "star.fill")
 														}
-														.buttonStyle(PlainButtonStyle())
+														.buttonStyle(GrowingButton())
 													}
-													if Int(user.ratings![archived_order.business.business_name]!) < 5 {
-														ForEach(Int(user.ratings![archived_order.business.business_name]!)..<5) { index in
+													if business_rating < 5 {
+														ForEach( business_rating..<5, id: \.self) { index in
 															Button {
 																user.setRating(order: archived_order, rating: index+1)
 																Task{
@@ -91,14 +93,15 @@ struct ArchivioView: View {
 															} label: {
 																Image(systemName: "star")
 															}
-															.buttonStyle(PlainButtonStyle())
+															.buttonStyle(GrowingButton())
 														}
 													}
 												}
 											}
 											else {
 												HStack{
-													ForEach(0..<5) { index in
+													// Text(String(user.ratings![archived_order.business.business_name]!))
+													ForEach(0..<5, id: \.self) { index in
 														Button {
 															user.setRating(order: order, rating: index+1)
 															Task{
@@ -107,7 +110,7 @@ struct ArchivioView: View {
 														} label: {
 															Image(systemName: "star")
 														}
-														.buttonStyle(PlainButtonStyle())
+														.buttonStyle(GrowingButton())
 													}
 												}
 											}
@@ -121,10 +124,10 @@ struct ArchivioView: View {
 											order.buildNewOrderFromOldOrder(order: archived_order)
 										} label: {
 											Text("Effettua stesso ordine")
-//												.padding()
-//												.foregroundColor(.white)
-//												.background(.blue)
-//												.cornerRadius(8)
+												.padding()
+												.foregroundColor(.white)
+												.background(.blue)
+												.cornerRadius(8)
 										}
 										.frame(maxWidth: .infinity, alignment: .center)
 										.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
@@ -170,72 +173,6 @@ struct ArchivioView: View {
 				await ordersViewModel.loadData(path: "archive", method: "POST", user: user)
 			}
 		}
-	}
-}
-
-struct RatingStarsView : View {
-	
-	var user : User
-	var order : Order
-	
-	var body: some View{
-		let keyExists = user.ratings![order.business.business_name] != nil
-		if keyExists{
-			HStack{
-				ForEach(0..<Int(user.ratings![order.business.business_name]!)) { index in
-					Button {
-						user.setRating(order: order, rating: index+1)
-						Task{
-							await user.saveMyRating(user: user)
-						}
-					} label: {
-						Image(systemName: "star.fill")
-					}
-					.buttonStyle(PlainButtonStyle())
-				}
-				if Int(user.ratings![order.business.business_name]!) < 5 {
-					ForEach(Int(user.ratings![order.business.business_name]!)..<5) { index in
-						Button {
-							user.setRating(order: order, rating: index+1)
-							Task{
-								await user.saveMyRating(user: user)
-							}
-						} label: {
-							Image(systemName: "star")
-						}
-						.buttonStyle(PlainButtonStyle())
-					}
-				}
-			}
-		}
-		else {
-			HStack{
-				ForEach(0..<5) { index in
-					Button {
-						user.setRating(order: order, rating: index+1)
-						Task{
-							await user.saveMyRating(user: user)
-						}
-					} label: {
-						Image(systemName: "star")
-					}
-					.buttonStyle(PlainButtonStyle())
-				}
-			}
-		}
-		
-	}
-}
-
-struct GrowingButton: ButtonStyle {
-	func makeBody(configuration: Configuration) -> some View {
-		configuration.label
-			.padding()
-			.background(Color.blue)
-			.foregroundColor(.white)
-			.cornerRadius(8)
-			.scaleEffect(configuration.isPressed ? 1.2 : 1)
-			.animation(.easeOut(duration: 0.2), value: configuration.isPressed)
 	}
 }
 
