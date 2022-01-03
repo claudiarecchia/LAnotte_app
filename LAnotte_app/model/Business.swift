@@ -17,8 +17,9 @@ struct Business: Identifiable, Codable, Hashable {
     let location: String
     let rating: Double
     let products: [Product]
+	let opening_houres: [String : [String]]
     
-    static let defaultBusiness = Business(id: "", business_name: "", VAT_number: "", description: "", image: "", location: "", rating: 0, products: [] )
+	static let defaultBusiness = Business(id: "", business_name: "", VAT_number: "", description: "", image: "", location: "", rating: 0, products: [], opening_houres: ["": [""]] )
     
 }
 

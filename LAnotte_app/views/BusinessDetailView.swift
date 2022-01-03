@@ -39,7 +39,7 @@ struct BusinessDetailView: View {
 						
 						HStack{
 							Image(systemName: "clock")
-							Text("20:00 - 02:00")
+							Text(business.opening_houres[String(Date().dayNumberOfWeek())]![0] + " - " + business.opening_houres[String(Date().dayNumberOfWeek())]![1])
 								.fontWeight(.light)
 						}
 					}

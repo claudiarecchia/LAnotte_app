@@ -26,3 +26,33 @@ func getCurrentDateTimeString() -> String {
 	let date = dateFormatter.string(from: Date())
 	return date
 }
+
+extension Date {
+	func dayNumberOfWeek() -> Int {
+		let numDay = Calendar.current.dateComponents([.weekday], from: self).weekday
+		
+		var toReturn = 0
+		
+		// weekday goes from 1 (sunday) to 7 (saturday)
+		// this is a way to convert into italian convention 0 (monday) to 6 (sunday)
+		switch numDay {
+		case 1:
+			toReturn = 6
+		case 2:
+			toReturn = 0
+		case 3:
+			toReturn = 1
+		case 4:
+			toReturn = 2
+		case 5:
+			toReturn = 3
+		case 6:
+			toReturn = 4
+		case 7:
+			toReturn = 5
+		default:
+			toReturn = 0
+		}
+		return toReturn
+	}
+}
