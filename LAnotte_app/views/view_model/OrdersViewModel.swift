@@ -48,12 +48,15 @@ final class OrdersViewModel : ObservableObject {
 	
 	func placeOrder(order: Order, user : User) async {
 		if user.id != nil {
-			order.user = user
+			DispatchQueue.main.async{
+				order.user = user
+			}
 		}
 			
-		// add date to order
-		order.date_time = getCurrentDateTimeString()
-		
+		DispatchQueue.main.async{
+			// add date to order
+			order.date_time = getCurrentDateTimeString()
+		}
 		
 		guard let encoded = try? JSONEncoder().encode(order) else{
 			print("Failed to encode order")
@@ -74,11 +77,11 @@ final class OrdersViewModel : ObservableObject {
 					user.login(user: (decodedOrder.first?.user)!)
 				}
 				
-				DispatchQueue.main.async {
-					self.confirmationMessage = "Testo sottotitolo"
-					self.showingConfirmation = true
-					print("OK")
-				}
+//				DispatchQueue.main.async {
+//					self.confirmationMessage = "Testo sottotitolo"
+//					self.showingConfirmation = true
+//					print("OK")
+//				}
 			}
 		} catch {
 			print("Checkout failed")

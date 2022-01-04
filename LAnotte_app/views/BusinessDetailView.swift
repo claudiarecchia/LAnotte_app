@@ -74,6 +74,7 @@ struct BusinessDetailView: View {
 													Image(systemName: "heart.fill")
 														.foregroundColor(.red)
 												}
+												.buttonStyle(GrowingButton())
 											}
 											else{
 												Button {
@@ -85,15 +86,11 @@ struct BusinessDetailView: View {
 													Image(systemName: "heart")
 														.foregroundColor(.red)
 												}
+												.buttonStyle(GrowingButton())
 											}
 										// AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
 									}
-									
 								}
-								
-								
-								
-						
 							}
 						}
 						
@@ -131,8 +128,10 @@ struct BusinessRatingStarsView : View {
 			ForEach(0..<Int(business.rating)) { _ in
 				Image(systemName: "star.fill")
 			}
-			if (business.rating.truncatingRemainder(dividingBy: 2) != 0){
-				Image(systemName: "star.leadinghalf.filled")
+			if (Int(business.rating) < 5){
+				if (business.rating.truncatingRemainder(dividingBy: 2) != 0){
+					Image(systemName: "star.leadinghalf.filled")
+				}
 			}
 			if Int(business.rating) + Int(business.rating.truncatingRemainder(dividingBy: 2)) < 5 {
 				ForEach(Int(business.rating + business.rating.truncatingRemainder(dividingBy: 2))..<5) { _ in

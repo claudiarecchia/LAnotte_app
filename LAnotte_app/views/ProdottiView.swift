@@ -54,7 +54,7 @@ struct ProdottiView: View {
 														Image(systemName: "heart.fill")
 															.foregroundColor(.red)
 													}
-													.buttonStyle(PlainButtonStyle())
+													.buttonStyle(GrowingButton())
 												}
 												else{
 													Button {
@@ -66,7 +66,7 @@ struct ProdottiView: View {
 														Image(systemName: "heart")
 															.foregroundColor(.red)
 													}
-													.buttonStyle(PlainButtonStyle())
+													.buttonStyle(GrowingButton())
 												}
 											// AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
 										}

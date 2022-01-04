@@ -109,11 +109,13 @@ class Order: ObservableObject, Codable, Identifiable {
 	}
 	
 	func emptyOrder(){
-		id = ""
-		products = [Product]()
-		business = Business.defaultBusiness
-		user = User()
-		date_time = ""
+		DispatchQueue.main.async {
+			self.id = ""
+			self.products = [Product]()
+			self.business = Business.defaultBusiness
+			self.user = User()
+			self.date_time = ""
+		}
 	}
 	
 	init() { }

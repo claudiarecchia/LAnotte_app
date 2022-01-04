@@ -80,6 +80,7 @@ struct ArchivioView: View {
 															}
 														} label: {
 															Image(systemName: "star.fill")
+																.foregroundColor(.yellow)
 														}
 														.buttonStyle(GrowingButton())
 													}
@@ -92,6 +93,7 @@ struct ArchivioView: View {
 																}
 															} label: {
 																Image(systemName: "star")
+																	.foregroundColor(.yellow)
 															}
 															.buttonStyle(GrowingButton())
 														}
@@ -100,15 +102,16 @@ struct ArchivioView: View {
 											}
 											else {
 												HStack{
-													// Text(String(user.ratings![archived_order.business.business_name]!))
+													
 													ForEach(0..<5, id: \.self) { index in
 														Button {
-															user.setRating(order: order, rating: index+1)
+															user.setRating(order: archived_order, rating: index+1)
 															Task{
 																await user.saveMyRating(user: user)
 															}
 														} label: {
 															Image(systemName: "star")
+																.foregroundColor(.yellow)
 														}
 														.buttonStyle(GrowingButton())
 													}

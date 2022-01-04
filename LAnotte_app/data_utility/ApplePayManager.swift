@@ -13,6 +13,9 @@ final class ApplePayManager: NSObject {
 	// MARK: - PROPERTIES
 	var itemCost: Double
 	var order : Order
+	var user : User
+	var ordersViewModel : OrdersViewModel
+	var status : PKPaymentAuthorizationStatus
 
 	private lazy var paymentRequest: PKPaymentRequest = {
 		let request: PKPaymentRequest = PKPaymentRequest()
@@ -45,12 +48,16 @@ final class ApplePayManager: NSObject {
 		}
 		paymentVC.delegate = self
 		window.rootViewController?.present(paymentVC, animated: true, completion: nil)
-		
 	}
+	
+	
 	// MARK: - LIFE CYCLE METHODS
-	init(itemCost: Double, order : Order) {
+	init(itemCost: Double, order : Order, user : User, ordersViewModel : OrdersViewModel) {
 		self.itemCost = itemCost
 		self.order = order
+		self.user = user
+		self.ordersViewModel = ordersViewModel
+		self.status = .failure
 	}
 }
 
@@ -59,12 +66,18 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
 	
 	func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
 		controller.dismiss(animated: true, completion: nil)
-		print("dismiss")
+		if self.status == .success {
+			Task{
+				print("Placing order")
+				await ordersViewModel.placeOrder(order: order, user: user)
+				order.emptyOrder()
+			}
+		}
 	}
 	
 	func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
 		completion(.init(status: .success, errors: nil))
-		print("PAGATO CORRETTAMENTE")
+		self.status = .success
 	}
 
 	

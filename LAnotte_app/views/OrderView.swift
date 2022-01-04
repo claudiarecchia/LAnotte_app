@@ -19,126 +19,115 @@ struct OrderView: View {
 	var body: some View {
 		
 		if order.products != [Product]() {
-			List{
-				Section{
-					
-					VStack(alignment:.center, spacing: 6){
+			VStack{
+				List{
+					Section{
 						
-						Text("Il mio ordine da")
-							.font(.title3)
-						
-						Text(order.business.business_name)
-							.font(.title2)
-							.bold()
-						
-						LAnotteRoundedImageView(image: "business", dimension: 90)
-						
-					}
-					.frame(maxWidth: .infinity, alignment: .center)
-					.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
-					
-				}
-				
-				ForEach(Array(Set(order.products)).sorted()){ item in
-					VStack(alignment: .leading, spacing: 8){
-						HStack{
-							LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+						VStack(alignment:.center, spacing: 6){
 							
-							VStack(alignment: .leading, spacing: 3){
-								LAnotteProductNameAndStampsView(item: item)
-								
-								HStack{
-									Text(item.category)
-										.font(.subheadline)
-										.fontWeight(.light)
-									
-									Spacer()
-									
-									if user.isLoggedIn {
-										// let list = userViewModel.favouriteProducts[order.business.business_name]
-										let list = user.favourite_products?[order.business.business_name]
-										if (list != nil && list!.contains(item)) {
-											Button {
-												user.removeFavouriteProduct(business: order.business, product: item)
-												Task{
-													await user.saveMyFavourites(user: user)
-												}
-											} label: {
-												Image(systemName: "heart.fill")
-													.foregroundColor(.red)
-											}
-										}
-										else{
-											Button {
-												user.AddFavouriteProduct(business: order.business, product: item)
-												Task{
-													await user.saveMyFavourites(user: user)
-												}
-											} label: {
-												Image(systemName: "heart")
-													.foregroundColor(.red)
-											}
-										}
-									}
-									
-								}
-								
-							}
-						}
-						
-						LAnotteProductPriceView(item: item)
-						
-						LAnotteProductIngredientsView(item: item)
-						
-						
-						Stepper {
-							Text("Aggiunti all'ordine: \(order.getQuantityProductInOrder(product: item)) ")
-						} onIncrement: {
-							order.addProduct(product: item, product_business: order.business)
-						} onDecrement: {
-							order.removeProduct(product: item)
-						}
-					}
-				}
-				
-				Section{
-					VStack{
-						Button {
-							Task{
-								await ordersViewModel.placeOrder(order: order, user: user)
-							}
-						} label: {
-							Text("Conferma ordine € \((String(format: "%.2f", order.getTotal())))")
-								.padding()
-								.foregroundColor(.white)
-								.background(.blue)
-								.cornerRadius(8)
+							Text("Il mio ordine da")
+								.font(.title3)
+							
+							Text(order.business.business_name)
+								.font(.title2)
+								.bold()
+							
+							LAnotteRoundedImageView(image: "business", dimension: 90)
+							
 						}
 						.frame(maxWidth: .infinity, alignment: .center)
 						.listRowBackground(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 						
-						
-						let applePay = ApplePayManager(itemCost: order.getTotal(), order: order)
-						iPaymentButton(type: .buy, style: .black) {
-							applePay.buyBtnTapped()
+					}
+					
+					ForEach(Array(Set(order.products)).sorted()){ item in
+						VStack(alignment: .leading, spacing: 8){
+							HStack{
+								LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+								
+								VStack(alignment: .leading, spacing: 3){
+									LAnotteProductNameAndStampsView(item: item)
+									
+									HStack{
+										Text(item.category)
+											.font(.subheadline)
+											.fontWeight(.light)
+										
+										Spacer()
+										
+										if user.isLoggedIn {
+											let list = user.favourite_products?[order.business.business_name]
+											if (list != nil && list!.contains(item)) {
+												Button {
+													user.removeFavouriteProduct(business: order.business, product: item)
+													Task{
+														await user.saveMyFavourites(user: user)
+													}
+												} label: {
+													Image(systemName: "heart.fill")
+														.foregroundColor(.red)
+												}
+												.buttonStyle(GrowingButton())
+											}
+											else{
+												Button {
+													user.AddFavouriteProduct(business: order.business, product: item)
+													Task{
+														await user.saveMyFavourites(user: user)
+													}
+												} label: {
+													Image(systemName: "heart")
+														.foregroundColor(.red)
+												}
+												.buttonStyle(GrowingButton())
+											}
+										}
+									}
+								}
+							}
+							
+							LAnotteProductPriceView(item: item)
+							
+							LAnotteProductIngredientsView(item: item)
+							
+							Stepper {
+								Text("Aggiunti all'ordine: \(order.getQuantityProductInOrder(product: item)) ")
+							} onIncrement: {
+								order.addProduct(product: item, product_business: order.business)
+							} onDecrement: {
+								order.removeProduct(product: item)
+							}
 						}
 					}
 					
 				}
-			}
-			.alert("Ordine confermato", isPresented: $ordersViewModel.showingConfirmation) {
-				Button("OK") {
-					order.emptyOrder()
+				
+				Spacer()
+				
+				Text("Totale ordine € \((String(format: "%.2f", order.getTotal())))")
+					.font(.headline)
+				
+				let applePay = ApplePayManager(itemCost: order.getTotal(), order: order, user: user, ordersViewModel: ordersViewModel)
+				if colorScheme == .dark {
+					iPaymentButton(type: .buy, style: .white) {
+						applePay.buyBtnTapped()
+					}
+					.padding(.bottom, 4)
 				}
-			} message: {
-				Text(ordersViewModel.confirmationMessage)
+				else {
+					iPaymentButton(type: .buy, style: .black) {
+						applePay.buyBtnTapped()
+					}
+					.padding(.bottom, 4)
+				}
 			}
-//			.onAppear{
-//				user.IsLoggedIn()
-//				Task{
-//					await user.FavouriteProducts(user: user)
-//				}
-//			}
+			//			.alert("Ordine confermato", isPresented: $ordersViewModel.showingConfirmation) {
+			//				Button("OK") {
+			//					order.emptyOrder()
+			//				}
+			//			} message: {
+			//				Text(ordersViewModel.confirmationMessage)
+			//			}
 		}
 		else {
 			Text("Inserisci prodotti nell'ordine per visualizzarli qui")

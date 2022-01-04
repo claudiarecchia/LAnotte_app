@@ -16,7 +16,7 @@ public struct iPaymentButton: View {
 	
 	private var type: PKPaymentButtonType
 	private var style: PKPaymentButtonStyle
-	private var cornerRadius: CGFloat = 4.0
+	private var cornerRadius: CGFloat = 8.0
 	private var action: () -> Void
 	
 	/// Creates a new payment button. 🏗👷‍♀️💰
@@ -71,9 +71,9 @@ fileprivate struct iPaymentButtonHelper: View {
 	var cornerRadius: CGFloat
 	var body: some View {
 		iPaymentButtonRepresentable(type: type, style: style, cornerRadius: cornerRadius)
-			.frame(minWidth: 100, maxWidth: 400)
-			.frame(height: 60)
-			.frame(maxWidth: .infinity)
+			.frame(minWidth: 100, maxWidth: 300)
+			.frame(height: 40)
+			// .frame(maxWidth: .infinity)
 	}
 }
 
