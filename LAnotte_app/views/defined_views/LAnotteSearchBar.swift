@@ -31,17 +31,18 @@ struct LAnotteSearchBar: View {
 						Image(systemName: "magnifyingglass")
 							.foregroundColor(.gray)
 							.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-							.padding(.leading, 8)
+							.padding(.leading, 15)
 				 
 						if isEditing {
 							Button(action: {
+								self.isEditing = false
 								self.text = ""
 								// Dismiss the keyboard
 								UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 							}) {
 								Image(systemName: "multiply.circle.fill")
 									.foregroundColor(.gray)
-									.padding(.trailing, 8)
+									.padding(.trailing, 15)
 							}
 						}
 					}

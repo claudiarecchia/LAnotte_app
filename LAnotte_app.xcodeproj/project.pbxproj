@@ -39,6 +39,7 @@
 		8E3E7486275F6CEC00EC28A5 /* LAnotteRoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7485275F6CEB00EC28A5 /* LAnotteRoundedImageView.swift */; };
 		8E3E7488275F739D00EC28A5 /* BusinessDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7487275F739D00EC28A5 /* BusinessDetailView.swift */; };
 		8E3E748A275F78EC00EC28A5 /* HiddenNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E7489275F78EB00EC28A5 /* HiddenNavigationBar.swift */; };
+		8E97F6702786F55300B0EF46 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E97F66F2786F55300B0EF46 /* Strings.swift */; };
 		8EA0ABB72760E1A400038D54 /* LAnotteProductPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABB62760E1A400038D54 /* LAnotteProductPriceView.swift */; };
 		8EA0ABBB2761063D00038D54 /* LAnotteProductIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */; };
 		8EA0ABBD2761069800038D54 /* LAnotteProductNameAndStampsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */; };
@@ -100,6 +101,8 @@
 		8E3E7485275F6CEB00EC28A5 /* LAnotteRoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteRoundedImageView.swift; sourceTree = "<group>"; };
 		8E3E7487275F739D00EC28A5 /* BusinessDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessDetailView.swift; sourceTree = "<group>"; };
 		8E3E7489275F78EB00EC28A5 /* HiddenNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenNavigationBar.swift; sourceTree = "<group>"; };
+		8E97F66E2786678B00B0EF46 /* LAnotte-app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "LAnotte-app-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8E97F66F2786F55300B0EF46 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		8EA0ABB62760E1A400038D54 /* LAnotteProductPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductPriceView.swift; sourceTree = "<group>"; };
 		8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductIngredientsView.swift; sourceTree = "<group>"; };
 		8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductNameAndStampsView.swift; sourceTree = "<group>"; };
@@ -145,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				8E3BAD6B27837D11004756FB /* GrowingButton.swift */,
+				8E97F66F2786F55300B0EF46 /* Strings.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -173,6 +177,7 @@
 		8E3E7434275CBBE000EC28A5 /* LAnotte_app */ = {
 			isa = PBXGroup;
 			children = (
+				8E97F66E2786678B00B0EF46 /* LAnotte-app-Info.plist */,
 				8E246395276373A30047455D /* LAnotte_app.entitlements */,
 				8E3BAD6A27837CDC004756FB /* extensions */,
 				8E3E7478275D1E0300EC28A5 /* data_utility */,
@@ -432,6 +437,7 @@
 				8E3E7472275CDA1A00EC28A5 /* Order.swift in Sources */,
 				8EA0ABBD2761069800038D54 /* LAnotteProductNameAndStampsView.swift in Sources */,
 				8E3E7460275CCC9800EC28A5 /* HomeView.swift in Sources */,
+				8E97F6702786F55300B0EF46 /* Strings.swift in Sources */,
 				8E3E7462275CCCD900EC28A5 /* PerMeView.swift in Sources */,
 				8E3E746E275CD8E400EC28A5 /* User.swift in Sources */,
 				8E3E7475275CDC5400EC28A5 /* LocaliView.swift in Sources */,
@@ -609,6 +615,8 @@
 				DEVELOPMENT_TEAM = 4X5G9WSZ87;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "LAnotte-app-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "L'Anotte";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -639,6 +647,8 @@
 				DEVELOPMENT_TEAM = T5C42Q6E68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "LAnotte-app-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "L'Anotte";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

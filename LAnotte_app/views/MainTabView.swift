@@ -41,7 +41,7 @@ struct MainTabView: View {
 			user.IsLoggedIn()
 			if user.isLoggedIn {
 				Task {
-					await user.FavouriteProducts(user: user)
+					await user.UserAttributes(user: user)
 				}
 			}
 		}

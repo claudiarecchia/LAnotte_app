@@ -15,7 +15,6 @@ struct ProdottiView: View {
 	@EnvironmentObject var user : User
 	
 	@State private var searchString = ""
-	@State private var heart_count = false
 	
 	var body: some View {
 		VStack{
@@ -24,7 +23,7 @@ struct ProdottiView: View {
 			
 			Form{
 				ForEach(localiViewModel.businesses) { business in
-					List(searchString == "" ? business.products: business.products.filter { $0.name.contains(searchString)}, id: \.self) { item in
+					List(searchString == "" ? business.products: business.products.filter { $0.name.containsIgnoringCase(searchString)}, id: \.self) { item in
 						
 						VStack(alignment: .leading, spacing: 8){
 							HStack{

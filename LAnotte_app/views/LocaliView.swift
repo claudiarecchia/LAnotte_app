@@ -18,7 +18,7 @@ struct LocaliView: View {
 			else{
 				VStack{
 					LAnotteSearchBar(text: $searchString, placeholderText: "Cerca il nome di un locale")
-					List(searchString == "" ? localiViewModel.businesses: localiViewModel.businesses.filter { $0.business_name.contains(searchString)}, id: \.self) { item in
+					List(searchString == "" ? localiViewModel.businesses: localiViewModel.businesses.filter { $0.business_name.containsIgnoringCase(searchString)}, id: \.self) { item in
 						
 						NavigationLink(destination: BusinessDetailView(business: item), label: {
 							VStack(alignment: .leading) {
@@ -31,7 +31,6 @@ struct LocaliView: View {
 						})
 					}
 				}
-				
 			}
 		} .hiddenNavigationBarStyle()
 			.onAppear {

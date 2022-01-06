@@ -74,7 +74,7 @@ final class OrdersViewModel : ObservableObject {
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
 				
 				if user.id == nil {
-					user.login(user: (decodedOrder.first?.user)!)
+					// user.login(user: (decodedOrder.first?.user)!)
 				}
 				
 //				DispatchQueue.main.async {

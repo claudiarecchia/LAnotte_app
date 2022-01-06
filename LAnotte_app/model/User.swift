@@ -6,14 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 class User: Codable, Identifiable, ObservableObject {
 	
 	enum CodingKeys: CodingKey{
-		case id, favourite_products, ratings
+		case id, apple_id, favourite_products, ratings
 	}
 	
     var id: String?
+	var apple_id: String?
 //    var email: String?
 //    var password: String?
 	
@@ -22,14 +24,14 @@ class User: Codable, Identifiable, ObservableObject {
 	@Published var ratings : [String: Int]?
 	
 	func IsLoggedIn(){
-		let user = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
-		print("check logged in", user)
-		if user != nil {
-			print("user not nil")
-				self.isLoggedIn = true
-				self.id = user!.id
-		}
-		print("user is logged in: " , self.isLoggedIn)
+//		let user = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
+//		print("check logged in", user)
+//		if user != nil {
+//			print("user not nil")
+//				self.isLoggedIn = true
+//				self.id = user!.id
+//		}
+//		print("user is logged in: " , self.isLoggedIn)
 		
 	}
 	
@@ -48,19 +50,44 @@ class User: Codable, Identifiable, ObservableObject {
 	
 	init(){ }
 	
-	func login(user : User){
-		KeychainHelper.standard.save(user, service: "user", account: "lanotte")
-		DispatchQueue.main.async {
-			self.id = user.id
-			self.favourite_products = user.favourite_products
-			self.ratings = user.ratings
+//	func login(user : User){
+//		KeychainHelper.standard.save(user, service: "user", account: "lanotte")
+//		DispatchQueue.main.async {
+//			self.id = user.id
+//			self.favourite_products = user.favourite_products
+//			self.ratings = user.ratings
+//		}
+//	}
+	
+	 func AppleLogin(apple_id : String) async {
+		self.setID(apple_id: apple_id)
+		
+		Task {
+			await self.UserAttributes(user: self)
+			DispatchQueue.main.async{
+				print(self.apple_id)
+				print(self.favourite_products)
+				print(self.ratings)
+				KeychainHelper.standard.save(self, service: "user", account: "lanotte")
+				self.isLoggedIn = true
+			}
 		}
+		 
+		
+		 
+	}
+	
+	func setID(apple_id : String){
+		self.apple_id = apple_id
+
 	}
 	
 	func logout(){
 		KeychainHelper.standard.delete(service: "user", account: "lanotte")
 		self.id = ""
 		self.favourite_products = [:]
+		self.ratings = [:]
+		self.isLoggedIn = false
 	}
 	
 	func setFavProducts(products: [String : [Product]]){
@@ -75,6 +102,21 @@ class User: Codable, Identifiable, ObservableObject {
 	
 	func setRating(order : Order, rating : Int){
 		self.ratings![order.business.business_name] = rating
+	}
+	
+	func getNumberFavouriteProducts() -> Bool {
+//		Array(user.favourite_products!.keys).sorted(), id: \.self) { business in
+//			ForEach(user.favourite_products![business]!) { item in
+		
+		var notEmptyDict = false
+		
+		let list = Array(self.favourite_products!.keys).sorted()
+		for business in list {
+			if self.favourite_products![business] != nil {
+				notEmptyDict = true
+			}
+		}
+		return notEmptyDict
 	}
 	
 	// MARK: - API CALLS
@@ -105,8 +147,7 @@ class User: Codable, Identifiable, ObservableObject {
 
 	}
 	
-	func FavouriteProducts(user : User) async {
-		if user.isLoggedIn {
+	func UserAttributes(user : User) async {
 			// add user to request
 			guard let encoded = try? JSONEncoder().encode(user) else{
 				print("Failed to encode user")
@@ -117,7 +158,7 @@ class User: Codable, Identifiable, ObservableObject {
 			var request = URLRequest(url: url)
 			request.setValue("application/json", forHTTPHeaderField: "Content-type")
 			request.httpMethod = "POST"
-			
+
 			do{
 				let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
@@ -132,8 +173,6 @@ class User: Codable, Identifiable, ObservableObject {
 			} catch {
 				print("Checkout failed")
 			}
-			
-		}
 		
 	}
 	
@@ -192,6 +231,7 @@ class User: Codable, Identifiable, ObservableObject {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		
 		try container.encode(id, forKey: .id)
+		try container.encode(apple_id, forKey: .apple_id)
 		try container.encode(favourite_products, forKey: .favourite_products)
 		try container.encode(ratings, forKey: .ratings)
 	}
@@ -200,6 +240,7 @@ class User: Codable, Identifiable, ObservableObject {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		id = try container.decode(String.self, forKey: .id)
+		apple_id = try container.decode(String.self, forKey: .apple_id)
 		favourite_products = try container.decode([String : [Product]].self, forKey: .favourite_products)
 		ratings = try container.decode([String : Int].self, forKey: .ratings)
 	}
