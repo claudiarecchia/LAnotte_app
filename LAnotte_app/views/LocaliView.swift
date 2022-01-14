@@ -18,12 +18,13 @@ struct LocaliView: View {
 			else{
 				VStack{
 					LAnotteSearchBar(text: $searchString, placeholderText: "Cerca il nome di un locale")
-					List(searchString == "" ? localiViewModel.businesses: localiViewModel.businesses.filter { $0.business_name.containsIgnoringCase(searchString)}, id: \.self) { item in
+					List(searchString == "" ? localiViewModel.businesses.sorted(): localiViewModel.businesses.filter { $0.business_name.containsIgnoringCase(searchString)}, id: \.self) { item in
 						
 						NavigationLink(destination: BusinessDetailView(business: item), label: {
 							VStack(alignment: .leading) {
 								HStack{
-									LAnotteRoundedImageView(image: "business", dimension: 70)
+									// LAnotteRoundedImageView(image: "business", dimension: 70)
+									LAnotteRoundedImageView(image: item.image , dimension: 70)
 									Text(item.business_name)
 										.font(.headline)
 								}

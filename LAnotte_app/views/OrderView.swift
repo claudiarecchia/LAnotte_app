@@ -32,7 +32,7 @@ struct OrderView: View {
 								.font(.title2)
 								.bold()
 							
-							LAnotteRoundedImageView(image: "business", dimension: 90)
+							LAnotteRoundedImageView(image: order.business.image, dimension: 90)
 							
 						}
 						.frame(maxWidth: .infinity, alignment: .center)
@@ -43,7 +43,7 @@ struct OrderView: View {
 					ForEach(Array(Set(order.products)).sorted()){ item in
 						VStack(alignment: .leading, spacing: 8){
 							HStack{
-								LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+								LAnotteRoundedImageView(image: item.image, dimension: 70)
 								
 								VStack(alignment: .leading, spacing: 3){
 									LAnotteProductNameAndStampsView(item: item)

@@ -7,20 +7,25 @@
 
 import Foundation
 
-struct Business: Identifiable, Codable, Hashable {
+struct Business: Identifiable, Codable, Hashable, Comparable{
+	
+	static func < (lhs: Business, rhs: Business) -> Bool {
+		lhs.business_name < rhs.business_name
+	}
     
     let id: String
     let business_name: String
     let VAT_number: String
     let description: String
-    let image: String
+	let image: String
     let location: String
     let rating: Double
     let products: [Product]
 	let opening_houres: [String : [String]]
-    
+
+	
 	static let defaultBusiness = Business(id: "", business_name: "", VAT_number: "", description: "", image: "", location: "", rating: 0, products: [], opening_houres: ["": [""]] )
-    
+
 }
 
 struct BusinessResponse: Codable{

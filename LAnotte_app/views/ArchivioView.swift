@@ -25,10 +25,17 @@ struct ArchivioView: View {
 						.padding(.top, 2)
 
 						if ordersViewModel.isLoading{
-							Spacer()
-							ProgressView()
-							Spacer()
+							VStack{
+								Spacer()
+								ProgressView()
+								Spacer()
+							}
+							.frame(maxWidth: .infinity)
+							.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
+							
 						}
+						
+					
 						else {
 							
 							if (ordersViewModel.orders.count) > 0 {
@@ -142,19 +149,24 @@ struct ArchivioView: View {
 										}
 									}
 								}
+								.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 							}
 							
 							// no orders in archive but uer logged
 							else{
-								Spacer()
+								VStack{
+									Spacer()
+									
+									Text("Effettua un ordine per vederlo nell'archivio")
+										.padding()
+										.multilineTextAlignment(.center)
+										.foregroundColor(.gray)
+										.frame(maxWidth: .infinity)
+									
+									Spacer()
+								}
+								.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
 								
-								Text("Effettua un ordine per vederlo nell'archivio")
-									.padding()
-									.multilineTextAlignment(.center)
-									.foregroundColor(.gray)
-									.frame(maxWidth: .infinity)
-								
-								Spacer()
 							}
 							
 							
@@ -193,7 +205,7 @@ struct ArchivioView: View {
 							switch auth.credential {
 							case let credentials as ASAuthorizationAppleIDCredential:
 								let userId = credentials.user
-								
+								user.apple_id = userId
 								Task {
 									await user.AppleLogin(apple_id: userId)
 								}
@@ -217,7 +229,7 @@ struct ArchivioView: View {
 			}
 		}
 		.frame(maxWidth: .infinity)
-		.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
+		
 		.onAppear {
 			Task{
 				// user.IsLoggedIn()

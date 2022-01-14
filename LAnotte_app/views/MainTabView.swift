@@ -38,7 +38,7 @@ struct MainTabView: View {
 					Text("Ordine")
 				}
 		}.onAppear{
-			user.IsLoggedIn()
+			// user.IsLoggedIn()
 			if user.isLoggedIn {
 				Task {
 					await user.UserAttributes(user: user)

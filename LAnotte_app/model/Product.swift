@@ -17,14 +17,13 @@ struct Product: Identifiable, Codable, Equatable, Hashable, Comparable {
     let id: String
     let name: String
     let ingredients: [String]
-    // var image: Data?
     let image: String
     let category: String
     let stamps: [String]
 	let price: Double
 	
 	static let defaultProduct = Product(id: "", name: "", ingredients: [], image: "", category: "", stamps: [], price: 0)
-    
+ 
 }
 
 

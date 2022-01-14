@@ -17,7 +17,7 @@ final class OrdersViewModel : ObservableObject {
 	
 	@Published var confirmationMessage = ""
 	@Published var showingConfirmation = false
-
+	
 	
 	func loadData(path: String, method: String, user: User) async {
 		self.isLoading = true
@@ -47,15 +47,17 @@ final class OrdersViewModel : ObservableObject {
 	}
 	
 	func placeOrder(order: Order, user : User) async {
-		if user.id != nil {
+		
+		if user.isLoggedIn {
+			let storedUser = user.readKeychain()
 			DispatchQueue.main.async{
-				order.user = user
+				order.setUser(user: storedUser)
 			}
 		}
-			
+		
 		DispatchQueue.main.async{
 			// add date to order
-			order.date_time = getCurrentDateTimeString()
+			order.setDateTime(date_time: getCurrentDateTimeString())
 		}
 		
 		guard let encoded = try? JSONEncoder().encode(order) else{
@@ -77,43 +79,14 @@ final class OrdersViewModel : ObservableObject {
 					// user.login(user: (decodedOrder.first?.user)!)
 				}
 				
-//				DispatchQueue.main.async {
-//					self.confirmationMessage = "Testo sottotitolo"
-//					self.showingConfirmation = true
-//					print("OK")
-//				}
+				//				DispatchQueue.main.async {
+				//					self.confirmationMessage = "Testo sottotitolo"
+				//					self.showingConfirmation = true
+				//					print("OK")
+				//				}
 			}
 		} catch {
 			print("Checkout failed")
 		}
 	}
-	
-//	func makePayment(order : Order){
-//		let paymentItem = PKPaymentSummaryItem.init(label: "ordine", amount: NSDecimalNumber(value: order.getTotal()))
-//		let paymentNetworks = [PKPaymentNetwork.amex, .discover, .masterCard, .visa]
-//		if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks) {
-//
-//			let request = PKPaymentRequest()
-//				request.currencyCode = "EUR" // 1
-//				request.countryCode = "IT" // 2
-//				request.merchantIdentifier = "merchant.it.demo.tesi.lanotteapp" // 3
-//				request.merchantCapabilities = PKMerchantCapability.capability3DS // 4
-//				request.supportedNetworks = paymentNetworks // 5
-//				request.paymentSummaryItems = [paymentItem] // 6
-//
-//			guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: request) else {
-//			// displayDefaultAlert(title: "Error", message: "Unable to present Apple Pay authorization.")
-//			print("Unable to present Apple Pay authorization.")
-//			return
-//		}
-//			// paymentVC.delegate = self
-//			self.present(paymentVC, animated: true, completion: nil)
-//
-//		} else {
-//			print("Unable to make Apple Pay transaction")
-//			// displayDefaultAlert(title: "Error", message: "Unable to make Apple Pay transaction.")
-//		}
-//	}
-	
-	
 }

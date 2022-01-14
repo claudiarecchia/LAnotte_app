@@ -13,7 +13,7 @@ struct LAnotteRoundedImageView: View {
     var dimension: CGFloat
     
     var body: some View {
-        Image(image)
+        Image(uiImage: UIImage(data: Data(base64Encoded: image)!)!)
             .resizable()
             .aspectRatio(1, contentMode: .fit)
             .frame(width: dimension, height: dimension)

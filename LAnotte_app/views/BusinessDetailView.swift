@@ -20,7 +20,7 @@ struct BusinessDetailView: View {
 			List {
 				Section{
 					VStack(alignment:.center, spacing: 6){
-						LAnotteRoundedImageView(image: "business", dimension: 90)
+						LAnotteRoundedImageView(image: business.image, dimension: 90)
 						
 						Text(business.business_name)
 							.font(.title2)
@@ -50,7 +50,7 @@ struct BusinessDetailView: View {
 				ForEach(business.products){ item in
 					VStack(alignment: .leading, spacing: 8){
 						HStack{
-							LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+							LAnotteRoundedImageView(image: item.image, dimension: 70)
 							
 							VStack(alignment: .leading, spacing: 3){
 								LAnotteProductNameAndStampsView(item: item)

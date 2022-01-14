@@ -16,8 +16,6 @@ class User: Codable, Identifiable, ObservableObject {
 	
     var id: String?
 	var apple_id: String?
-//    var email: String?
-//    var password: String?
 	
 	@Published var isLoggedIn : Bool = false
 	@Published var favourite_products : [String: [Product]]?
@@ -37,8 +35,6 @@ class User: Codable, Identifiable, ObservableObject {
 	
 	init(id: String, fav_prod: [String: [Product]], ratings : [String : Int]){
         self.id = id
-//        self.email = email
-//        self.password = password
 		self.favourite_products = fav_prod
 		self.ratings = ratings
     }
@@ -49,18 +45,10 @@ class User: Codable, Identifiable, ObservableObject {
 	}
 	
 	init(){ }
-	
-//	func login(user : User){
-//		KeychainHelper.standard.save(user, service: "user", account: "lanotte")
-//		DispatchQueue.main.async {
-//			self.id = user.id
-//			self.favourite_products = user.favourite_products
-//			self.ratings = user.ratings
-//		}
-//	}
+
 	
 	 func AppleLogin(apple_id : String) async {
-		self.setID(apple_id: apple_id)
+		// self.setID(apple_id: apple_id)
 		
 		Task {
 			await self.UserAttributes(user: self)
@@ -72,14 +60,17 @@ class User: Codable, Identifiable, ObservableObject {
 				self.isLoggedIn = true
 			}
 		}
-		 
-		
-		 
 	}
 	
 	func setID(apple_id : String){
 		self.apple_id = apple_id
+		print("QUI" , self.apple_id)
 
+	}
+	
+	func readKeychain() -> User{
+		let user = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
+		return user!
 	}
 	
 	func logout(){
@@ -167,6 +158,7 @@ class User: Codable, Identifiable, ObservableObject {
 						if decoded.count > 0 {
 							self.favourite_products = decoded[0].favourite_products!
 							self.ratings = decoded[0].ratings!
+							self.id = decoded[0].id
 						}
 					}
 				}

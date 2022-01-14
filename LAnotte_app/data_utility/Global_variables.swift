@@ -11,4 +11,4 @@ import Foundation
 // var base_server_uri = "http://localhost:8080/api/"
 
 // real device - change ip address
-var base_server_uri = "http://192.168.1.77:8080/api/"
+var base_server_uri = "http://192.168.1.21:8080/api/"
