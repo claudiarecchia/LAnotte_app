@@ -10,7 +10,7 @@ import Foundation
 class Order: ObservableObject, Codable, Identifiable {
 	
 	enum CodingKeys: CodingKey{
-		case id, products, business, user, date_time
+		case id, products, business, user, date_time, order_status
 	}
 	
 	
@@ -19,6 +19,7 @@ class Order: ObservableObject, Codable, Identifiable {
 	@Published var business: Business = Business.defaultBusiness
 	@Published var user: User = User()
 	@Published var date_time: String = ""
+	@Published var order_status: String = ""
 	
 	@Published var alertOtherBusinessMessage = ""
 	@Published var showingAlertOtherBusiness = false
@@ -26,10 +27,8 @@ class Order: ObservableObject, Codable, Identifiable {
 	@Published var alertModifiedOrderMessage = ""
 	@Published var showingAlertModifiedOrder = false
 	
-	
 	//    var estimated_hour: String?
-	//    var state: String?
-
+	
 	func addProduct(product: Product, product_business: Business){
 		if business.business_name == Business.defaultBusiness.business_name {
 			self.business = product_business
@@ -128,6 +127,7 @@ class Order: ObservableObject, Codable, Identifiable {
 		try container.encode(business, forKey: .business)
 		try container.encode(user, forKey: .user)
 		try container.encode(date_time, forKey: .date_time)
+		try container.encode(order_status, forKey: .order_status)
 	}
 	
 	required init(from decoder: Decoder) throws {
@@ -138,6 +138,7 @@ class Order: ObservableObject, Codable, Identifiable {
 		business = try container.decode(Business.self, forKey: .business)
 		user = try container.decode(User.self, forKey: .user)
 		date_time = try container.decode(String.self, forKey: .date_time)
+		order_status = try container.decode(String.self, forKey: .order_status)
 	}
 	
 	

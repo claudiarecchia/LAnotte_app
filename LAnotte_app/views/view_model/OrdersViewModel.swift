@@ -35,7 +35,7 @@ final class OrdersViewModel : ObservableObject {
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+				print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 				DispatchQueue.main.async {
 					self.isLoading = false
 					self.orders = decodedOrder
@@ -47,18 +47,6 @@ final class OrdersViewModel : ObservableObject {
 	}
 	
 	func placeOrder(order: Order, user : User) async {
-		
-		if user.isLoggedIn {
-			let storedUser = user.readKeychain()
-			DispatchQueue.main.async{
-				order.setUser(user: storedUser)
-			}
-		}
-		
-		DispatchQueue.main.async{
-			// add date to order
-			order.setDateTime(date_time: getCurrentDateTimeString())
-		}
 		
 		guard let encoded = try? JSONEncoder().encode(order) else{
 			print("Failed to encode order")

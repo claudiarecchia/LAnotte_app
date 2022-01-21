@@ -43,7 +43,7 @@ struct PerMeView: View {
 									VStack(alignment: .leading, spacing: 8){
 										HStack{
 											
-											LAnotteRoundedImageView(image: "mule-mug-rame", dimension: 70)
+											LAnotteRoundedImageView(image: item.image, dimension: 70)
 											
 											VStack(alignment: .leading, spacing: 3) {
 												

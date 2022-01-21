@@ -48,17 +48,16 @@ class User: Codable, Identifiable, ObservableObject {
 
 	
 	 func AppleLogin(apple_id : String) async {
-		// self.setID(apple_id: apple_id)
 		
 		Task {
 			await self.UserAttributes(user: self)
-			DispatchQueue.main.async{
-				print(self.apple_id)
-				print(self.favourite_products)
-				print(self.ratings)
-				KeychainHelper.standard.save(self, service: "user", account: "lanotte")
-				self.isLoggedIn = true
-			}
+//			DispatchQueue.main.async{
+//				print(self.apple_id)
+//				print(self.favourite_products)
+//				print(self.ratings)
+//				KeychainHelper.standard.save(self, service: "user", account: "lanotte")
+//				self.isLoggedIn = true
+//			}
 		}
 	}
 	
@@ -100,13 +99,15 @@ class User: Codable, Identifiable, ObservableObject {
 //			ForEach(user.favourite_products![business]!) { item in
 		
 		var notEmptyDict = false
-		
-		let list = Array(self.favourite_products!.keys).sorted()
-		for business in list {
-			if self.favourite_products![business] != nil {
-				notEmptyDict = true
+		if self.favourite_products != nil {
+			let list = Array(self.favourite_products!.keys).sorted()
+			for business in list {
+				if self.favourite_products![business] != nil {
+					notEmptyDict = true
+				}
 			}
 		}
+		
 		return notEmptyDict
 	}
 	
@@ -159,6 +160,9 @@ class User: Codable, Identifiable, ObservableObject {
 							self.favourite_products = decoded[0].favourite_products!
 							self.ratings = decoded[0].ratings!
 							self.id = decoded[0].id
+							
+							KeychainHelper.standard.save(self, service: "user", account: "lanotte")
+							self.isLoggedIn = true
 						}
 					}
 				}

@@ -69,7 +69,15 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
 		if self.status == .success {
 			Task{
 				print("Placing order")
+				
+				order.setDateTime(date_time: getCurrentDateTimeString())
+				if user.isLoggedIn {
+					let storedUser = user.readKeychain()
+						order.setUser(user: storedUser)
+				}
+				
 				await ordersViewModel.placeOrder(order: order, user: user)
+				
 				order.emptyOrder()
 			}
 		}

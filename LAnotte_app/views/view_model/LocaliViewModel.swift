@@ -47,5 +47,15 @@ final class LocaliViewModel : ObservableObject {
 		}
 		return result
 	}
+	
+	func isClosingDay(business : Business) -> Bool {
+		var isClosingDay = false
+		if (business.opening_houres[String(Date().dayNumberOfWeek())]![0]) == "" {
+			if (business.opening_houres[String(Date().dayNumberOfWeek())]![1]) == "" {
+				isClosingDay = true
+			}
+		}
+		return isClosingDay
+	}
     
 }

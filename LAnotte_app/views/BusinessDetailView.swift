@@ -11,6 +11,7 @@ struct BusinessDetailView: View {
 	
 	@EnvironmentObject var order: Order
 	@EnvironmentObject var user: User
+	@StateObject private var localiViewModel = LocaliViewModel()
 	
 	@State var business: Business = Business.defaultBusiness
 	@Environment(\.colorScheme) var colorScheme
@@ -39,8 +40,14 @@ struct BusinessDetailView: View {
 						
 						HStack{
 							Image(systemName: "clock")
-							Text(business.opening_houres[String(Date().dayNumberOfWeek())]![0] + " - " + business.opening_houres[String(Date().dayNumberOfWeek())]![1])
-								.fontWeight(.light)
+							if !(localiViewModel.isClosingDay(business: business)){
+								Text(business.opening_houres[String(Date().dayNumberOfWeek())]![0] + " - " + business.opening_houres[String(Date().dayNumberOfWeek())]![1])
+									.fontWeight(.light)
+							}
+							else {
+								Text("Giorno di chiusura")
+							}
+							
 						}
 					}
 					.frame(maxWidth: .infinity, alignment: .center)				

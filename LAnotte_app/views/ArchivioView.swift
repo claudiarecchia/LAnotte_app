@@ -43,6 +43,13 @@ struct ArchivioView: View {
 									VStack(alignment: .leading, spacing: 4){
 										
 										HStack(spacing: 5){
+											Text("Stato dell'ordine: ")
+												.fontWeight(.semibold)
+											Text(archived_order.order_status)
+												.fontWeight(.semibold)
+										}
+										
+										HStack(spacing: 5){
 											Image(systemName: "checkmark.seal")
 											Text(archived_order.business.business_name)
 												.fontWeight(.semibold)
