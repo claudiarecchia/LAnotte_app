@@ -12,7 +12,6 @@ struct LAnotteProductIngredientsView : View{
 	var item: Product
 	
 	var body: some View{
-		
 		HStack{
 			Image(systemName: "list.bullet")
 			
@@ -25,7 +24,7 @@ struct LAnotteProductIngredientsView : View{
 }
 
 struct ProductIngredientsView_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		LAnotteProductIngredientsView(item: Product.defaultProduct)
-    }
+	}
 }

@@ -18,6 +18,22 @@ final class OrdersViewModel : ObservableObject {
 	@Published var confirmationMessage = ""
 	@Published var showingConfirmation = false
 	
+	let userDefaults = UserDefaults.standard
+	
+	func getOrdersToCollect(){
+		var number = 0
+		for order in orders {
+			if order.order_status == "pronto per il ritiro" {
+				number = number+1
+			}
+		}
+		UIApplication.shared.applicationIconBadgeNumber = number
+	}
+	
+	func anyProductsWithAlcohol(){
+		
+	}
+	
 	
 	func loadData(path: String, method: String, user: User) async {
 		self.isLoading = true
@@ -35,7 +51,7 @@ final class OrdersViewModel : ObservableObject {
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
+				// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 				DispatchQueue.main.async {
 					self.isLoading = false
 					self.orders = decodedOrder
@@ -55,9 +71,13 @@ final class OrdersViewModel : ObservableObject {
 		
 		let url = URL(string: base_server_uri + "placeOrder")!
 		var request = URLRequest(url: url)
+		print("TOKEN : " , userDefaults.value(forKey: "deviceToken"))
+		let token = userDefaults.value(forKey: "deviceToken") ?? ""
+		request.addValue(token as! String, forHTTPHeaderField: "Authorization")
 		request.setValue("application/json", forHTTPHeaderField: "Content-type")
 		request.httpMethod = "POST"
 		
+		print(request)
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
@@ -66,12 +86,6 @@ final class OrdersViewModel : ObservableObject {
 				if user.id == nil {
 					// user.login(user: (decodedOrder.first?.user)!)
 				}
-				
-				//				DispatchQueue.main.async {
-				//					self.confirmationMessage = "Testo sottotitolo"
-				//					self.showingConfirmation = true
-				//					print("OK")
-				//				}
 			}
 		} catch {
 			print("Checkout failed")

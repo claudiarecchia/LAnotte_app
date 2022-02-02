@@ -35,8 +35,10 @@ struct LocaliView: View {
 			}
 		} .hiddenNavigationBarStyle()
 			.onAppear {
-				localiViewModel.loadData(path: "allBusinesses", method: "GET")
-				UITableView.appearance().contentInset.top = -25
+				Task {
+					await localiViewModel.loadData(path: "allBusinesses", method: "GET")
+					UITableView.appearance().contentInset.top = -25
+				}
 			}
 	}
 }

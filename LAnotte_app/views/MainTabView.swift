@@ -37,8 +37,14 @@ struct MainTabView: View {
 					Image(systemName: "bag")
 					Text("Ordine")
 				}
+			
+			InfoView()
+				.tabItem {
+					Image(systemName: "info.circle.fill")
+					Text("Info")
+				}
 		}.onAppear{
-			// user.IsLoggedIn()
+		
 			if user.isLoggedIn {
 				Task {
 					await user.UserAttributes(user: user)

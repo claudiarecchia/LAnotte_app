@@ -23,7 +23,8 @@ struct ArchivioView: View {
 					Text("Archivio ordini")
 						.font(.title3)
 						.padding(.top, 2)
-
+					
+					ZStack{
 						if ordersViewModel.isLoading{
 							VStack{
 								Spacer()
@@ -32,12 +33,9 @@ struct ArchivioView: View {
 							}
 							.frame(maxWidth: .infinity)
 							.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
-							
 						}
 						
-					
 						else {
-							
 							if (ordersViewModel.orders.count) > 0 {
 								List(ordersViewModel.orders, id: \.id){ archived_order in
 									VStack(alignment: .leading, spacing: 4){
@@ -47,6 +45,15 @@ struct ArchivioView: View {
 												.fontWeight(.semibold)
 											Text(archived_order.order_status)
 												.fontWeight(.semibold)
+											
+										}
+										
+										HStack{
+											if (archived_order.order_status == "pronto per il ritiro"){
+												Text("Codice per il ritiro nel locale: " + archived_order.code_to_collect)
+													.fontWeight(.semibold)
+													.foregroundColor(Color.green)
+											}
 										}
 										
 										HStack(spacing: 5){
@@ -88,7 +95,7 @@ struct ArchivioView: View {
 												if keyExists{
 													HStack{
 														var business_rating = user.ratings![archived_order.business.business_name]!
-
+														
 														ForEach(0..<business_rating, id: \.self) { index in
 															Button {
 																user.setRating(order: archived_order, rating: index+1)
@@ -156,10 +163,18 @@ struct ArchivioView: View {
 										}
 									}
 								}
-								.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
+								.refreshable{
+									Task{
+										await ordersViewModel.loadData(path: "archive", method: "POST", user: user)
+										ordersViewModel.getOrdersToCollect()
+									}
+								}.onAppear{
+									UIRefreshControl.appearance().tintColor = UIColor.secondarySystemBackground
+								}
+								
 							}
 							
-							// no orders in archive but uer logged
+							// no orders in archive but user logged
 							else{
 								VStack{
 									Spacer()
@@ -169,15 +184,12 @@ struct ArchivioView: View {
 										.multilineTextAlignment(.center)
 										.foregroundColor(.gray)
 										.frame(maxWidth: .infinity)
-									
 									Spacer()
 								}
 								.background(Color(colorScheme == .dark ? .black : .secondarySystemBackground))
-								
 							}
-							
-							
 						}
+					}
 				}
 				.alert("Attenzione! Ordine non modificato", isPresented: $order.showingAlertOtherBusiness) {
 					Button("OK") { }
@@ -206,41 +218,35 @@ struct ArchivioView: View {
 					SignInWithAppleButton(.continue){ request in
 						request.requestedScopes = [.email]
 					}
-					onCompletion: { result in
-						switch result {
-						case .success(let auth):
-							switch auth.credential {
-							case let credentials as ASAuthorizationAppleIDCredential:
-								let userId = credentials.user
-								user.apple_id = userId
-								Task {
-									await user.AppleLogin(apple_id: userId)
-								}
+				onCompletion: { result in
+					switch result {
+					case .success(let auth):
+						switch auth.credential {
+						case let credentials as ASAuthorizationAppleIDCredential:
+							let userId = credentials.user
+							user.apple_id = userId
+							Task {
+								await user.AppleLogin(apple_id: userId)
+							}
 							
 						default:
 							break
 						}
-						
 					case .failure(let error): print(error)
 					}
-					
-					
 				}
-				.frame(height: 50)
-				.padding()
+				.frame(height: 40)
+				.frame(minWidth: 100, maxWidth: 300)
 				.cornerRadius(8)
 				.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-					
 				}
-				
 			}
 		}
 		.frame(maxWidth: .infinity)
-		
 		.onAppear {
 			Task{
-				// user.IsLoggedIn()
 				await ordersViewModel.loadData(path: "archive", method: "POST", user: user)
+				ordersViewModel.getOrdersToCollect()
 			}
 		}
 	}

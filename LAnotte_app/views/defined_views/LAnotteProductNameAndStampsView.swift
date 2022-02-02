@@ -18,6 +18,21 @@ struct LAnotteProductNameAndStampsView: View {
 				.fontWeight(.semibold)
 			
 			Spacer()
+			
+			if item.stamps.contains("alcoholic"){
+				if colorScheme == .light {
+					Image("18+_black")
+						.resizable()
+						.scaledToFit()
+						.frame(height: 19)
+				}
+				if colorScheme == .dark {
+					Image("18+_white")
+						.resizable()
+						.scaledToFit()
+						.frame(height: 19)
+				}
+			}
 			if item.stamps.contains("vegan"){
 				Image(systemName: "leaf.fill")
 			}
@@ -34,7 +49,6 @@ struct LAnotteProductNameAndStampsView: View {
 						.scaledToFit()
 						.frame(height: 19)
 				}
-				
 			}
 		}
 	}

@@ -7,12 +7,16 @@
 
 import SwiftUI
 import PassKit
+import AuthenticationServices
 
 struct OrderView: View {
 	
 	@StateObject private var ordersViewModel = OrdersViewModel()
 	@EnvironmentObject var order: Order
 	@EnvironmentObject var user: User
+	
+	@State private var showingAlert = false
+	@State private var preauthorized = false
 	
 	@Environment(\.colorScheme) var colorScheme
 	
@@ -88,6 +92,8 @@ struct OrderView: View {
 							
 							LAnotteProductPriceView(item: item)
 							
+							LAnotteAlcoholContentView(item: item)
+							
 							LAnotteProductIngredientsView(item: item)
 							
 							Stepper {
@@ -99,7 +105,6 @@ struct OrderView: View {
 							}
 						}
 					}
-					
 				}
 				
 				Spacer()
@@ -107,18 +112,83 @@ struct OrderView: View {
 				Text("Totale ordine € \((String(format: "%.2f", order.getTotal())))")
 					.font(.headline)
 				
-				let applePay = ApplePayManager(itemCost: order.getTotal(), order: order, user: user, ordersViewModel: ordersViewModel)
-				if colorScheme == .dark {
-					iPaymentButton(type: .buy, style: .white) {
-						applePay.buyBtnTapped()
+				// if user is loggen, then can process the order
+				if user.isLoggedIn {
+					// if order contains alcoholic products, a preauthorization is required
+					if (order.containsAlcoholicProducts()) && (!preauthorized){
+						Button {
+							showingAlert = true
+						} label: {
+							Text("Procedi al pagamento")
+								.frame(minWidth: 0, maxWidth: .infinity)
+								.frame(height: 40)
+								.font(.system(size: 16))
+								.foregroundColor(.white)
+						}
+						.background(.blue)
+						.cornerRadius(8)
+						.frame(minWidth: 100, maxWidth: 300)
+						.alert(isPresented:$showingAlert) {
+							Alert(
+								title: Text("Nell'ordine sono presenti prodotti contenenti alcol"),
+								message: Text("Conferma di essere maggiorenne per completare l'acquisto."),
+								primaryButton: .default(Text("Modifica ordine")) {
+									print("Modifica ordine")
+								},
+								secondaryButton: .destructive(Text("Sono maggiorenne")) {
+									print("Sono maggiorenne")
+									self.preauthorized = true
+								}
+							)
+						}
 					}
-					.padding(.bottom, 4)
+					
+					else {
+						let applePay = ApplePayManager(itemCost: order.getTotal(), order: order, user: user, ordersViewModel: ordersViewModel)
+						if colorScheme == .dark {
+							
+							iPaymentButton(type: .buy, style: .white) {
+								applePay.buyBtnTapped()
+								
+							}
+							.padding(.bottom, 4)
+						}
+						else {
+							iPaymentButton(type: .buy, style: .black) {
+								applePay.buyBtnTapped()
+							}
+							.padding(.bottom, 4)
+						}
+					}
 				}
+				
+				// otherwise, if the user is not logged will we required the authentication
 				else {
-					iPaymentButton(type: .buy, style: .black) {
-						applePay.buyBtnTapped()
+					SignInWithAppleButton(.continue){ request in
+						request.requestedScopes = [.email]
 					}
-					.padding(.bottom, 4)
+				onCompletion: { result in
+					switch result {
+					case .success(let auth):
+						switch auth.credential {
+						case let credentials as ASAuthorizationAppleIDCredential:
+							let userId = credentials.user
+							user.apple_id = userId
+							Task {
+								await user.AppleLogin(apple_id: userId)
+							}
+							
+						default:
+							break
+						}
+						
+					case .failure(let error): print(error)
+					}
+				}
+				.frame(height: 40)
+				.frame(minWidth: 100, maxWidth: 300)
+				.cornerRadius(8)
+				.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
 				}
 			}
 			//			.alert("Ordine confermato", isPresented: $ordersViewModel.showingConfirmation) {

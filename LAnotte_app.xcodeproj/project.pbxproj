@@ -42,6 +42,20 @@
 		8EA0ABBB2761063D00038D54 /* LAnotteProductIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */; };
 		8EA0ABBD2761069800038D54 /* LAnotteProductNameAndStampsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */; };
 		8EA7B3972773A15100B34F65 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7B3962773A15100B34F65 /* UserViewModel.swift */; };
+		8EC2EDD2279AD1570007F1B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EC2EDD1279AD1570007F1B9 /* GoogleService-Info.plist */; };
+		8EC2EDD3279AD1570007F1B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EC2EDD1279AD1570007F1B9 /* GoogleService-Info.plist */; };
+		8EC2EDD4279AD1570007F1B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EC2EDD1279AD1570007F1B9 /* GoogleService-Info.plist */; };
+		8EC2EE0F279ADC650007F1B9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8EC2EE0E279ADC650007F1B9 /* FirebaseAnalytics */; };
+		8EC2EE11279ADC650007F1B9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8EC2EE10279ADC650007F1B9 /* FirebaseMessaging */; };
+		8EC2EE1B27A98EEE0007F1B9 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE1A27A98EEE0007F1B9 /* InfoView.swift */; };
+		8EC2EE1C27A98EEE0007F1B9 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE1A27A98EEE0007F1B9 /* InfoView.swift */; };
+		8EC2EE1D27A98EEE0007F1B9 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE1A27A98EEE0007F1B9 /* InfoView.swift */; };
+		8EC2EE1F27A999180007F1B9 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE1E27A999170007F1B9 /* TextView.swift */; };
+		8EC2EE2027A999180007F1B9 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE1E27A999170007F1B9 /* TextView.swift */; };
+		8EC2EE2127A999180007F1B9 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE1E27A999170007F1B9 /* TextView.swift */; };
+		8EC2EE2327AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */; };
+		8EC2EE2427AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */; };
+		8EC2EE2527AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */; };
 		8EE7124C277249E200422F32 /* LAnotteSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +117,11 @@
 		8EA0ABBA2761063D00038D54 /* LAnotteProductIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductIngredientsView.swift; sourceTree = "<group>"; };
 		8EA0ABBC2761069800038D54 /* LAnotteProductNameAndStampsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteProductNameAndStampsView.swift; sourceTree = "<group>"; };
 		8EA7B3962773A15100B34F65 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		8EC2EDD1279AD1570007F1B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8EC2EDD6279AD36D0007F1B9 /* firebase-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "firebase-ios-sdk"; path = "../firebase-ios-sdk"; sourceTree = "<group>"; };
+		8EC2EE1A27A98EEE0007F1B9 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		8EC2EE1E27A999170007F1B9 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteAlcoholContentView.swift; sourceTree = "<group>"; };
 		8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteSearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC2EE11279ADC650007F1B9 /* FirebaseMessaging in Frameworks */,
+				8EC2EE0F279ADC650007F1B9 /* FirebaseAnalytics in Frameworks */,
 				8E246398276373A30047455D /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +173,7 @@
 		8E3E7429275CBBE000EC28A5 = {
 			isa = PBXGroup;
 			children = (
+				8EC2EDD5279AD36D0007F1B9 /* Packages */,
 				8E3E7434275CBBE000EC28A5 /* LAnotte_app */,
 				8E3E7445275CBBE400EC28A5 /* LAnotte_appTests */,
 				8E3E744F275CBBE400EC28A5 /* LAnotte_appUITests */,
@@ -181,6 +203,7 @@
 				8E3E7467275CD43C00EC28A5 /* model */,
 				8E3E7435275CBBE000EC28A5 /* LAnotte_appApp.swift */,
 				8E3E7439275CBBE300EC28A5 /* Assets.xcassets */,
+				8EC2EDD1279AD1570007F1B9 /* GoogleService-Info.plist */,
 				8E3E743B275CBBE300EC28A5 /* Preview Content */,
 			);
 			path = LAnotte_app;
@@ -236,6 +259,7 @@
 				8E3E7461275CCCD900EC28A5 /* PerMeView.swift */,
 				8E3E7476275CDC6200EC28A5 /* ProdottiView.swift */,
 				8E3E7487275F739D00EC28A5 /* BusinessDetailView.swift */,
+				8EC2EE1A27A98EEE0007F1B9 /* InfoView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -269,6 +293,8 @@
 				8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */,
 				8E3BAD64277C7463004756FB /* AddRemoveFavouriteView.swift */,
 				8E3BAD68277CE1DD004756FB /* PaymentButton.swift */,
+				8EC2EE1E27A999170007F1B9 /* TextView.swift */,
+				8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */,
 			);
 			path = defined_views;
 			sourceTree = "<group>";
@@ -281,6 +307,14 @@
 				8EA7B3962773A15100B34F65 /* UserViewModel.swift */,
 			);
 			path = view_model;
+			sourceTree = "<group>";
+		};
+		8EC2EDD5279AD36D0007F1B9 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8EC2EDD6279AD36D0007F1B9 /* firebase-ios-sdk */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +333,10 @@
 			dependencies = (
 			);
 			name = LAnotte_app;
+			packageProductDependencies = (
+				8EC2EE0E279ADC650007F1B9 /* FirebaseAnalytics */,
+				8EC2EE10279ADC650007F1B9 /* FirebaseMessaging */,
+			);
 			productName = LAnotte_app;
 			productReference = 8E3E7432275CBBE000EC28A5 /* LAnotte_app.app */;
 			productType = "com.apple.product-type.application";
@@ -371,6 +409,9 @@
 				Base,
 			);
 			mainGroup = 8E3E7429275CBBE000EC28A5;
+			packageReferences = (
+				8EC2EE0D279ADC650007F1B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 8E3E7433275CBBE000EC28A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -389,6 +430,7 @@
 			files = (
 				8E3E743D275CBBE300EC28A5 /* Preview Assets.xcassets in Resources */,
 				8E3E743A275CBBE300EC28A5 /* Assets.xcassets in Resources */,
+				8EC2EDD2279AD1570007F1B9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC2EDD3279AD1570007F1B9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +446,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC2EDD4279AD1570007F1B9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +466,7 @@
 				8E3E7486275F6CEC00EC28A5 /* LAnotteRoundedImageView.swift in Sources */,
 				8E24639E2767D08D0047455D /* OrdersViewModel.swift in Sources */,
 				8E3BAD65277C7463004756FB /* AddRemoveFavouriteView.swift in Sources */,
+				8EC2EE1F27A999180007F1B9 /* TextView.swift in Sources */,
 				8E3E748A275F78EC00EC28A5 /* HiddenNavigationBar.swift in Sources */,
 				8E3E7484275E971800EC28A5 /* LocaliViewModel.swift in Sources */,
 				8EA0ABBB2761063D00038D54 /* LAnotteProductIngredientsView.swift in Sources */,
@@ -437,8 +482,10 @@
 				8E3E7475275CDC5400EC28A5 /* LocaliView.swift in Sources */,
 				8E3E7466275CCD0A00EC28A5 /* OrderView.swift in Sources */,
 				8E3E7488275F739D00EC28A5 /* BusinessDetailView.swift in Sources */,
+				8EC2EE2327AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */,
 				8E3E747C275D1E4B00EC28A5 /* Global_variables.swift in Sources */,
 				8E3BAD69277CE1DD004756FB /* PaymentButton.swift in Sources */,
+				8EC2EE1B27A98EEE0007F1B9 /* InfoView.swift in Sources */,
 				8E24639C276769BD0047455D /* DateConverter.swift in Sources */,
 				8E3E7436275CBBE000EC28A5 /* LAnotte_appApp.swift in Sources */,
 				8E24639A276650400047455D /* KeychainHelper.swift in Sources */,
@@ -450,6 +497,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC2EE2027A999180007F1B9 /* TextView.swift in Sources */,
+				8EC2EE2427AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */,
+				8EC2EE1C27A98EEE0007F1B9 /* InfoView.swift in Sources */,
 				8E3E7447275CBBE400EC28A5 /* LAnotte_appTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,7 +509,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E3E7453275CBBE400EC28A5 /* LAnotte_appUITestsLaunchTests.swift in Sources */,
+				8EC2EE2127A999180007F1B9 /* TextView.swift in Sources */,
+				8EC2EE2527AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */,
 				8E3E7451275CBBE400EC28A5 /* LAnotte_appUITests.swift in Sources */,
+				8EC2EE1D27A98EEE0007F1B9 /* InfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +587,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -588,6 +645,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -795,6 +856,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8EC2EE0D279ADC650007F1B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8EC2EE0E279ADC650007F1B9 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EC2EE0D279ADC650007F1B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		8EC2EE10279ADC650007F1B9 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EC2EE0D279ADC650007F1B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8E3E742A275CBBE000EC28A5 /* Project object */;
 }

@@ -10,9 +10,8 @@ import Foundation
 class Order: ObservableObject, Codable, Identifiable {
 	
 	enum CodingKeys: CodingKey{
-		case id, products, business, user, date_time, order_status
+		case id, products, business, user, date_time, order_status, code_to_collect
 	}
-	
 	
 	@Published var id : String = ""
 	@Published var products = [Product]()
@@ -20,12 +19,15 @@ class Order: ObservableObject, Codable, Identifiable {
 	@Published var user: User = User()
 	@Published var date_time: String = ""
 	@Published var order_status: String = ""
+	@Published var code_to_collect: String = ""
 	
 	@Published var alertOtherBusinessMessage = ""
 	@Published var showingAlertOtherBusiness = false
 	
 	@Published var alertModifiedOrderMessage = ""
 	@Published var showingAlertModifiedOrder = false
+	
+	@Published var showingAlertAlcohol = false
 	
 	//    var estimated_hour: String?
 	
@@ -117,6 +119,15 @@ class Order: ObservableObject, Codable, Identifiable {
 		}
 	}
 	
+	func containsAlcoholicProducts() -> Bool {
+		for product in products {
+			if product.stamps.contains("alcoholic"){
+				return true
+			}
+		}
+		return false
+	}
+	
 	init() { }
 	
 	func encode(to encoder: Encoder) throws {
@@ -128,6 +139,7 @@ class Order: ObservableObject, Codable, Identifiable {
 		try container.encode(user, forKey: .user)
 		try container.encode(date_time, forKey: .date_time)
 		try container.encode(order_status, forKey: .order_status)
+		try container.encode(code_to_collect, forKey: .code_to_collect)
 	}
 	
 	required init(from decoder: Decoder) throws {
@@ -139,6 +151,7 @@ class Order: ObservableObject, Codable, Identifiable {
 		user = try container.decode(User.self, forKey: .user)
 		date_time = try container.decode(String.self, forKey: .date_time)
 		order_status = try container.decode(String.self, forKey: .order_status)
+		code_to_collect = try container.decode(String.self, forKey: .code_to_collect)
 	}
 	
 	

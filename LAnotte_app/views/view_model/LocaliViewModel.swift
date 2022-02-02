@@ -12,7 +12,7 @@ final class LocaliViewModel : ObservableObject {
     @Published var businesses: [Business] = []
     @Published var isLoading = true
 	
-    func loadData(path: String, method: String){
+    func loadData(path: String, method: String) async {
 		self.isLoading = true
         guard let url = URL(string: base_server_uri + path) else{
             fatalError("URL mancante")
@@ -20,7 +20,7 @@ final class LocaliViewModel : ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = method
         // print(request)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task =  try await URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return

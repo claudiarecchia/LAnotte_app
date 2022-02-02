@@ -21,8 +21,10 @@ struct Product: Identifiable, Codable, Equatable, Hashable, Comparable {
     let category: String
     let stamps: [String]
 	let price: Double
+	let alcohol_content: String
 	
-	static let defaultProduct = Product(id: "", name: "", ingredients: [], image: "", category: "", stamps: [], price: 0)
+	//static let defaultProduct = Product(id: "", name: "", ingredients: [], image: "", category: "", stamps: [], price: 0)
+	static let defaultProduct = Product(id: "", name: "", ingredients: [], image: "", category: "", stamps: [], price: 0, alcohol_content: "")
  
 }
 

@@ -95,13 +95,14 @@ struct BusinessDetailView: View {
 												}
 												.buttonStyle(GrowingButton())
 											}
-										// AddRemoveFavouriteView(userViewModel: userViewModel, business: business, item: item, user: user)
 									}
 								}
 							}
 						}
 						
 						LAnotteProductPriceView(item: item)
+						
+						LAnotteAlcoholContentView(item: item)
 						
 						LAnotteProductIngredientsView(item: item)
 						
