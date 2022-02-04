@@ -77,8 +77,6 @@ extension ApplePayManager: PKPaymentAuthorizationViewControllerDelegate {
 				}
 				
 				await ordersViewModel.placeOrder(order: order, user: user)
-				
-				order.emptyOrder()
 			}
 		}
 	}

@@ -64,7 +64,6 @@ final class OrdersViewModel : ObservableObject {
 			print("Failed to encode order")
 			return
 		}
-		
 		let url = URL(string: base_server_uri + "placeOrder")!
 		var request = URLRequest(url: url)
 		print("TOKEN : " , userDefaults.value(forKey: "deviceToken"))
@@ -72,12 +71,12 @@ final class OrdersViewModel : ObservableObject {
 		request.addValue(token as! String, forHTTPHeaderField: "Authorization")
 		request.setValue("application/json", forHTTPHeaderField: "Content-type")
 		request.httpMethod = "POST"
-		
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				// do sth
+				
+				order.emptyOrder()
 			}
 		} catch {
 			print("Checkout failed")
