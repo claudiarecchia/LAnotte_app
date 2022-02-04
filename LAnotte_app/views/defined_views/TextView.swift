@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-struct TextView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct TextView_Previews: PreviewProvider {
-    static var previews: some View {
-        TextView()
-    }
+struct TextView: UIViewRepresentable {
+	var text: String
+	
+	func makeUIView(context: Context) -> UITextView {
+		let textView = UITextView()
+		textView.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+		textView.textAlignment = .justified
+		return textView
+	}
+	
+	func updateUIView(_ uiView: UITextView, context: Context) {
+		uiView.text = text
+	}
 }

@@ -136,16 +136,23 @@ struct BusinessRatingStarsView : View {
 			ForEach(0..<Int(business.rating)) { _ in
 				Image(systemName: "star.fill")
 			}
-			if (Int(business.rating) < 5){
-				if (business.rating.truncatingRemainder(dividingBy: 2) != 0){
-					Image(systemName: "star.leadinghalf.filled")
+			
+				if (Int(business.rating) < 5){
+					if (business.rating.truncatingRemainder(dividingBy: 1) >= 0.49 && business.rating.truncatingRemainder(dividingBy: 1) <= 0.99 ){
+						Image(systemName: "star.leadinghalf.filled")
+						
+						if Int(business.rating) + 1 < 5{
+							ForEach(Int(business.rating) + 1..<5) { _ in
+								Image(systemName: "star")
+							}
+						}
+					}
 				}
-			}
-			if Int(business.rating) + Int(business.rating.truncatingRemainder(dividingBy: 2)) < 5 {
-				ForEach(Int(business.rating + business.rating.truncatingRemainder(dividingBy: 2))..<5) { _ in
-					Image(systemName: "star")
+				if Int(business.rating)  < 5 {
+					ForEach(Int(business.rating)..<5) { _ in
+						Image(systemName: "star")
+					}
 				}
-			}
 		}
 	}
 }

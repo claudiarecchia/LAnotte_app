@@ -29,8 +29,6 @@ class Order: ObservableObject, Codable, Identifiable {
 	
 	@Published var showingAlertAlcohol = false
 	
-	//    var estimated_hour: String?
-	
 	func addProduct(product: Product, product_business: Business){
 		if business.business_name == Business.defaultBusiness.business_name {
 			self.business = product_business

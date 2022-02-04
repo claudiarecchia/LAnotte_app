@@ -48,23 +48,13 @@ class User: Codable, Identifiable, ObservableObject {
 
 	
 	 func AppleLogin(apple_id : String) async {
-		
 		Task {
 			await self.UserAttributes(user: self)
-//			DispatchQueue.main.async{
-//				print(self.apple_id)
-//				print(self.favourite_products)
-//				print(self.ratings)
-//				KeychainHelper.standard.save(self, service: "user", account: "lanotte")
-//				self.isLoggedIn = true
-//			}
 		}
 	}
 	
 	func setID(apple_id : String){
 		self.apple_id = apple_id
-		print("QUI" , self.apple_id)
-
 	}
 	
 	func readKeychain() -> User{
@@ -94,10 +84,7 @@ class User: Codable, Identifiable, ObservableObject {
 		self.ratings![order.business.business_name] = rating
 	}
 	
-	func getNumberFavouriteProducts() -> Bool {
-//		Array(user.favourite_products!.keys).sorted(), id: \.self) { business in
-//			ForEach(user.favourite_products![business]!) { item in
-		
+	func getNumberFavouriteProducts() -> Bool {	
 		var notEmptyDict = false
 		if self.favourite_products != nil {
 			let list = Array(self.favourite_products!.keys).sorted()

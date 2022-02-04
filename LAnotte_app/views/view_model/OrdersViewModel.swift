@@ -30,10 +30,6 @@ final class OrdersViewModel : ObservableObject {
 		UIApplication.shared.applicationIconBadgeNumber = number
 	}
 	
-	func anyProductsWithAlcohol(){
-		
-	}
-	
 	
 	func loadData(path: String, method: String, user: User) async {
 		self.isLoading = true
@@ -77,15 +73,11 @@ final class OrdersViewModel : ObservableObject {
 		request.setValue("application/json", forHTTPHeaderField: "Content-type")
 		request.httpMethod = "POST"
 		
-		print(request)
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
 			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				
-				if user.id == nil {
-					// user.login(user: (decodedOrder.first?.user)!)
-				}
+				// do sth
 			}
 		} catch {
 			print("Checkout failed")

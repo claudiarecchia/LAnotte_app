@@ -31,11 +31,10 @@ struct InfoView: View {
 					} label: {
 						Text("Logout")
 							.frame(minWidth: 0, maxWidth: .infinity)
-							.font(.system(size: 18))
+							.font(.system(size: 16))
 							.frame(height: 40)
 							.foregroundColor(.black)
 					}
-					.padding()
 					.background(.white)
 					.cornerRadius(8)
 					.frame(minWidth: 100, maxWidth: 300)
@@ -46,10 +45,10 @@ struct InfoView: View {
 					} label: {
 						Text("Logout")
 							.frame(minWidth: 0, maxWidth: .infinity)
-							.font(.system(size: 18))
+							.font(.system(size: 16))
+							.frame(height: 40)
 							.foregroundColor(.white)
 					}
-					.padding()
 					.background(.black)
 					.cornerRadius(8)
 					.frame(width: 200, height: 100, alignment: .leading)
