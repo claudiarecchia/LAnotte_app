@@ -19,7 +19,7 @@ struct Product: Identifiable, Codable, Equatable, Hashable, Comparable {
     let ingredients: [String]
     let image: String
     let category: String
-    let stamps: [String]
+    let stamps: [Stamps]
 	let price: Double
 	let alcohol_content: String
 	

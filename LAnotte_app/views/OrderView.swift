@@ -143,7 +143,6 @@ struct OrderView: View {
 								)
 							}
 						}
-						
 						else {
 							let applePay = ApplePayManager(itemCost: order.getTotal(), order: order, user: user, ordersViewModel: ordersViewModel)
 							if colorScheme == .dark {

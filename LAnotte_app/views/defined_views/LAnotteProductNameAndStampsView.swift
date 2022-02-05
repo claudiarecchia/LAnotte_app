@@ -19,7 +19,7 @@ struct LAnotteProductNameAndStampsView: View {
 			
 			Spacer()
 			
-			if item.stamps.contains("alcoholic"){
+			if item.stamps.contains(Stamps.alcoholic){
 				if colorScheme == .light {
 					Image("18+_black")
 						.resizable()
@@ -33,10 +33,10 @@ struct LAnotteProductNameAndStampsView: View {
 						.frame(height: 19)
 				}
 			}
-			if item.stamps.contains("vegan"){
+			if item.stamps.contains(Stamps.vegan){
 				Image(systemName: "leaf.fill")
 			}
-			if item.stamps.contains("gluten free"){
+			if item.stamps.contains(Stamps.gluten_free){
 				if colorScheme == .light {
 					Image("gluten-free")
 						.resizable()

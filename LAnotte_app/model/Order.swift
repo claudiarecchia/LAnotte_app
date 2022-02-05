@@ -18,7 +18,7 @@ class Order: ObservableObject, Codable, Identifiable {
 	@Published var business: Business = Business.defaultBusiness
 	@Published var user: User = User()
 	@Published var date_time: String = ""
-	@Published var order_status: String = ""
+	@Published var order_status: OrderStatus = OrderStatus.composing
 	@Published var code_to_collect: String = ""
 	
 	@Published var alertOtherBusinessMessage = ""
@@ -119,7 +119,7 @@ class Order: ObservableObject, Codable, Identifiable {
 	
 	func containsAlcoholicProducts() -> Bool {
 		for product in products {
-			if product.stamps.contains("alcoholic"){
+			if product.stamps.contains(Stamps.alcoholic){
 				return true
 			}
 		}
@@ -148,7 +148,7 @@ class Order: ObservableObject, Codable, Identifiable {
 		business = try container.decode(Business.self, forKey: .business)
 		user = try container.decode(User.self, forKey: .user)
 		date_time = try container.decode(String.self, forKey: .date_time)
-		order_status = try container.decode(String.self, forKey: .order_status)
+		order_status = try container.decode(OrderStatus.self, forKey: .order_status)
 		code_to_collect = try container.decode(String.self, forKey: .code_to_collect)
 	}
 	

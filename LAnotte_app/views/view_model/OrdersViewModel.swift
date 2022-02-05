@@ -23,7 +23,7 @@ final class OrdersViewModel : ObservableObject {
 	func getOrdersToCollect(){
 		var number = 0
 		for order in orders {
-			if order.order_status == "pronto per il ritiro" {
+			if order.order_status == OrderStatus.prepared {
 				number = number+1
 			}
 		}

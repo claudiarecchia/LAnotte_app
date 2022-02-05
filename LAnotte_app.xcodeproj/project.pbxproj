@@ -56,6 +56,12 @@
 		8EC2EE2327AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */; };
 		8EC2EE2427AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */; };
 		8EC2EE2527AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */; };
+		8EC2EE2727AEF05D0007F1B9 /* Stamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2627AEF05A0007F1B9 /* Stamps.swift */; };
+		8EC2EE2827AEF05F0007F1B9 /* Stamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2627AEF05A0007F1B9 /* Stamps.swift */; };
+		8EC2EE2927AEF05F0007F1B9 /* Stamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2627AEF05A0007F1B9 /* Stamps.swift */; };
+		8EC2EE2B27AEF4790007F1B9 /* OrderStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2A27AEF4790007F1B9 /* OrderStatus.swift */; };
+		8EC2EE2C27AEF4790007F1B9 /* OrderStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2A27AEF4790007F1B9 /* OrderStatus.swift */; };
+		8EC2EE2D27AEF47A0007F1B9 /* OrderStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC2EE2A27AEF4790007F1B9 /* OrderStatus.swift */; };
 		8EE7124C277249E200422F32 /* LAnotteSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +128,8 @@
 		8EC2EE1A27A98EEE0007F1B9 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		8EC2EE1E27A999170007F1B9 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8EC2EE2227AA91930007F1B9 /* LAnotteAlcoholContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteAlcoholContentView.swift; sourceTree = "<group>"; };
+		8EC2EE2627AEF05A0007F1B9 /* Stamps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamps.swift; sourceTree = "<group>"; };
+		8EC2EE2A27AEF4790007F1B9 /* OrderStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatus.swift; sourceTree = "<group>"; };
 		8EE7124B277249E200422F32 /* LAnotteSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAnotteSearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,6 +249,8 @@
 				8E3E7471275CDA1A00EC28A5 /* Order.swift */,
 				8E3E747F275E187A00EC28A5 /* Product.swift */,
 				8E3E7481275E195C00EC28A5 /* Business.swift */,
+				8EC2EE2627AEF05A0007F1B9 /* Stamps.swift */,
+				8EC2EE2A27AEF4790007F1B9 /* OrderStatus.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -468,6 +478,7 @@
 				8E3BAD65277C7463004756FB /* AddRemoveFavouriteView.swift in Sources */,
 				8EC2EE1F27A999180007F1B9 /* TextView.swift in Sources */,
 				8E3E748A275F78EC00EC28A5 /* HiddenNavigationBar.swift in Sources */,
+				8EC2EE2727AEF05D0007F1B9 /* Stamps.swift in Sources */,
 				8E3E7484275E971800EC28A5 /* LocaliViewModel.swift in Sources */,
 				8EA0ABBB2761063D00038D54 /* LAnotteProductIngredientsView.swift in Sources */,
 				8EA0ABB72760E1A400038D54 /* LAnotteProductPriceView.swift in Sources */,
@@ -489,6 +500,7 @@
 				8E24639C276769BD0047455D /* DateConverter.swift in Sources */,
 				8E3E7436275CBBE000EC28A5 /* LAnotte_appApp.swift in Sources */,
 				8E24639A276650400047455D /* KeychainHelper.swift in Sources */,
+				8EC2EE2B27AEF4790007F1B9 /* OrderStatus.swift in Sources */,
 				8EA7B3972773A15100B34F65 /* UserViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,10 +509,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC2EE2C27AEF4790007F1B9 /* OrderStatus.swift in Sources */,
 				8EC2EE2027A999180007F1B9 /* TextView.swift in Sources */,
 				8EC2EE2427AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */,
 				8EC2EE1C27A98EEE0007F1B9 /* InfoView.swift in Sources */,
 				8E3E7447275CBBE400EC28A5 /* LAnotte_appTests.swift in Sources */,
+				8EC2EE2827AEF05F0007F1B9 /* Stamps.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,9 +523,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E3E7453275CBBE400EC28A5 /* LAnotte_appUITestsLaunchTests.swift in Sources */,
+				8EC2EE2927AEF05F0007F1B9 /* Stamps.swift in Sources */,
 				8EC2EE2127A999180007F1B9 /* TextView.swift in Sources */,
 				8EC2EE2527AA91940007F1B9 /* LAnotteAlcoholContentView.swift in Sources */,
 				8E3E7451275CBBE400EC28A5 /* LAnotte_appUITests.swift in Sources */,
+				8EC2EE2D27AEF47A0007F1B9 /* OrderStatus.swift in Sources */,
 				8EC2EE1D27A98EEE0007F1B9 /* InfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

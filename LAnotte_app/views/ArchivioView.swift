@@ -43,13 +43,26 @@ struct ArchivioView: View {
 										HStack(spacing: 5){
 											Text("Stato dell'ordine: ")
 												.fontWeight(.semibold)
-											Text(archived_order.order_status)
-												.fontWeight(.semibold)
-											
+											switch archived_order.order_status {
+												case OrderStatus.placed:
+													Text(placed_message)
+													.fontWeight(.semibold)
+												case OrderStatus.preparing:
+													Text(preparing_message)
+													.fontWeight(.semibold)
+												case OrderStatus.prepared:
+													Text(prepared_message)
+													.fontWeight(.semibold)
+												case OrderStatus.collected:
+													Text(collected_message)
+													.fontWeight(.semibold)
+												default:
+													Text("")
+												}
 										}
 										
 										HStack{
-											if (archived_order.order_status == "pronto per il ritiro"){
+											if (archived_order.order_status == OrderStatus.prepared){
 												Text("Codice per il ritiro nel locale: " + archived_order.code_to_collect)
 													.fontWeight(.semibold)
 													.foregroundColor(Color.green)

@@ -12,7 +12,7 @@ struct LAnotteAlcoholContentView: View {
 	var item : Product
 	
 	var body: some View {
-		if item.stamps.contains("alcoholic"){
+		if item.stamps.contains(Stamps.alcoholic){
 			VStack(alignment: .leading, spacing: 3){
 				HStack{
 					Image(systemName: "hand.raised.circle")
