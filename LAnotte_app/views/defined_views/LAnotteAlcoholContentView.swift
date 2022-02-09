@@ -17,7 +17,7 @@ struct LAnotteAlcoholContentView: View {
 				HStack{
 					Image(systemName: "hand.raised.circle")
 					
-					Text(item.alcohol_content + "%VOL")
+					Text(String(item.alcoholContent) + "%VOL")
 						.font(.subheadline)
 						.fontWeight(.light)
 				}

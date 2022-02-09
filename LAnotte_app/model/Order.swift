@@ -29,6 +29,15 @@ class Order: ObservableObject, Codable, Identifiable {
 	
 	@Published var showingAlertAlcohol = false
 	
+	
+	func dismissAlert(){
+		DispatchQueue.main.async {
+			self.showingAlertOtherBusiness = false
+		}
+		
+	}
+	
+	
 	func addProduct(product: Product, product_business: Business){
 		if business.business_name == Business.defaultBusiness.business_name {
 			self.business = product_business

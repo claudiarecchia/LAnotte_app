@@ -237,7 +237,7 @@ struct ArchivioView: View {
 						switch auth.credential {
 						case let credentials as ASAuthorizationAppleIDCredential:
 							let userId = credentials.user
-							user.apple_id = userId
+							user.login_id = userId
 							Task {
 								await user.AppleLogin(apple_id: userId)
 							}

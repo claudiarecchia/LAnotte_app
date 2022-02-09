@@ -144,10 +144,12 @@ struct OrderView: View {
 							}
 						}
 						else {
+							
 							let applePay = ApplePayManager(itemCost: order.getTotal(), order: order, user: user, ordersViewModel: ordersViewModel)
 							if colorScheme == .dark {
 								
 								iPaymentButton(type: .buy, style: .white) {
+									self.showingAlert = false
 									applePay.buyBtnTapped()
 									self.justPlacedOrder = true
 								}
@@ -155,6 +157,7 @@ struct OrderView: View {
 							}
 							else {
 								iPaymentButton(type: .buy, style: .black) {
+									self.showingAlert = false
 									applePay.buyBtnTapped()
 									self.justPlacedOrder = true
 								}
@@ -174,7 +177,7 @@ struct OrderView: View {
 							switch auth.credential {
 							case let credentials as ASAuthorizationAppleIDCredential:
 								let userId = credentials.user
-								user.apple_id = userId
+								user.login_id = userId
 								Task {
 									await user.AppleLogin(apple_id: userId)
 								}

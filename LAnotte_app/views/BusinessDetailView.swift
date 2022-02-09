@@ -119,6 +119,7 @@ struct BusinessDetailView: View {
 			}.hiddenNavigationBarStyle()
 				.alert("Attenzione! Prodotto non aggiunto", isPresented: $order.showingAlertOtherBusiness) {
 					Button("OK") {
+						order.dismissAlert()
 					}
 			 } message: {
 				 Text(order.alertOtherBusinessMessage)

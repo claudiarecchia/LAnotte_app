@@ -15,7 +15,6 @@ struct Business: Identifiable, Codable, Hashable, Comparable{
     
     let id: String
     let business_name: String
-    let VAT_number: String
     let description: String
 	let image: String
     let location: String
@@ -24,7 +23,7 @@ struct Business: Identifiable, Codable, Hashable, Comparable{
 	let opening_houres: [String : [String]]
 
 	
-	static let defaultBusiness = Business(id: "", business_name: "", VAT_number: "", description: "", image: "", location: "", rating: 0, products: [], opening_houres: ["": [""]] )
+	static let defaultBusiness = Business(id: "", business_name: "", description: "", image: "", location: "", rating: 0, products: [], opening_houres: ["": [""]] )
 
 }
 

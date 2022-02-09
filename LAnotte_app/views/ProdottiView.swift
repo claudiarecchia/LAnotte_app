@@ -21,9 +21,7 @@ struct ProdottiView: View {
 		ZStack{
 			if localiViewModel.isLoading{ ProgressView() }
 			else{
-				
 				VStack{
-					
 					LAnotteSearchBar(text: $searchString, placeholderText: "Cerca il nome o la categoria di un prodotto")
 					
 					Form{
@@ -98,6 +96,13 @@ struct ProdottiView: View {
 									}
 								}
 							}
+							.alert("Attenzione! Prodotto non aggiunto", isPresented: $order.showingAlertOtherBusiness) {
+								Button("OK") {
+									order.dismissAlert()
+								}
+							 } message: {
+								 Text(order.alertOtherBusinessMessage)
+							 }
 						}
 					}
 				}

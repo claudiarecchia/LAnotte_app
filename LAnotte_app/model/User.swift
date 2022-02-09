@@ -11,27 +11,16 @@ import SwiftUI
 class User: Codable, Identifiable, ObservableObject {
 	
 	enum CodingKeys: CodingKey{
-		case id, apple_id, favourite_products, ratings
+		case id, login_id, favourite_products, ratings
 	}
 	
     var id: String?
-	var apple_id: String?
+	var login_id: String?
 	
 	@Published var isLoggedIn : Bool = false
 	@Published var favourite_products : [String: [Product]]?
 	@Published var ratings : [String: Int]?
-	
-	func IsLoggedIn(){
-//		let user = KeychainHelper.standard.read(service: "user", account: "lanotte", type: User.self)
-//		print("check logged in", user)
-//		if user != nil {
-//			print("user not nil")
-//				self.isLoggedIn = true
-//				self.id = user!.id
-//		}
-//		print("user is logged in: " , self.isLoggedIn)
-		
-	}
+
 	
 	init(id: String, fav_prod: [String: [Product]], ratings : [String : Int]){
         self.id = id
@@ -54,7 +43,7 @@ class User: Codable, Identifiable, ObservableObject {
 	}
 	
 	func setID(apple_id : String){
-		self.apple_id = apple_id
+		self.login_id = apple_id
 	}
 	
 	func readKeychain() -> User{
@@ -214,7 +203,7 @@ class User: Codable, Identifiable, ObservableObject {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		
 		try container.encode(id, forKey: .id)
-		try container.encode(apple_id, forKey: .apple_id)
+		try container.encode(login_id, forKey: .login_id)
 		try container.encode(favourite_products, forKey: .favourite_products)
 		try container.encode(ratings, forKey: .ratings)
 	}
@@ -223,9 +212,8 @@ class User: Codable, Identifiable, ObservableObject {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		id = try container.decode(String.self, forKey: .id)
-		apple_id = try container.decode(String.self, forKey: .apple_id)
+		login_id = try container.decode(String.self, forKey: .login_id)
 		favourite_products = try container.decode([String : [Product]].self, forKey: .favourite_products)
 		ratings = try container.decode([String : Int].self, forKey: .ratings)
 	}
-	
 }
