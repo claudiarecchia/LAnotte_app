@@ -66,7 +66,7 @@ final class OrdersViewModel : ObservableObject {
 		}
 		let url = URL(string: base_server_uri + "placeOrder")!
 		var request = URLRequest(url: url)
-		print("TOKEN : " , userDefaults.value(forKey: "deviceToken"))
+		// print("TOKEN : " , userDefaults.value(forKey: "deviceToken"))
 		let token = userDefaults.value(forKey: "deviceToken") ?? ""
 		request.addValue(token as! String, forHTTPHeaderField: "Authorization")
 		request.setValue("application/json", forHTTPHeaderField: "Content-type")
@@ -74,8 +74,7 @@ final class OrdersViewModel : ObservableObject {
 		do{
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
 			// print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String)
-			if let decodedOrder = try? JSONDecoder().decode([Order].self, from: data){
-				
+			if (try? JSONDecoder().decode([Order].self, from: data)) != nil{
 				order.emptyOrder()
 			}
 		} catch {

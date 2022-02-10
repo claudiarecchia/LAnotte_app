@@ -1,5 +1,5 @@
 //
-//  ProdottiView.swift
+//  ProductsView.swift
 //  LAnotte_app
 //
 //  Created by Claudia Recchia on 05/12/21.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ProdottiView: View {
+struct ProductsView: View {
 	
-	@StateObject private var localiViewModel = LocaliViewModel()
+	@StateObject private var localiViewModel = BusinessesViewModel()
 	
 	@EnvironmentObject var order : Order
 	@EnvironmentObject var user : User
@@ -133,6 +133,6 @@ struct ProductBusiness : View{
 
 struct ProdottiView_Previews: PreviewProvider {
 	static var previews: some View {
-		ProdottiView().environmentObject(Order()).environmentObject(User())
+		ProductsView().environmentObject(Order()).environmentObject(User())
 	}
 }

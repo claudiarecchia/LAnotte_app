@@ -9,10 +9,10 @@ import SwiftUI
 import AuthenticationServices
 
 
-struct PerMeView: View {
+struct ForMeView: View {
 	
 	@StateObject private var ordersViewModel = OrdersViewModel()
-	@StateObject private var localiViewModel = LocaliViewModel()
+	@StateObject private var localiViewModel = BusinessesViewModel()
 	
 	@EnvironmentObject var user: User
 	@EnvironmentObject var order: Order
@@ -36,7 +36,7 @@ struct PerMeView: View {
 							List(Array(user.favourite_products!.keys).sorted(), id: \.self) { business in
 								ForEach(user.favourite_products![business]!) { item in
 									
-									var business = localiViewModel.getBusinessObjectFromString(business_name: business)
+									let business = localiViewModel.getBusinessObjectFromString(business_name: business)
 									
 									VStack(alignment: .leading, spacing: 8){
 										HStack{
@@ -145,6 +145,6 @@ struct PerMeView: View {
 
 struct PerMeView_Previews: PreviewProvider {
 	static var previews: some View {
-		PerMeView().environmentObject(User()).environmentObject(Order())
+		ForMeView().environmentObject(User()).environmentObject(Order())
 	}
 }

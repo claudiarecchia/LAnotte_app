@@ -1,5 +1,5 @@
 //
-//  ArchivioView.swift
+//  ArchiveView.swift
 //  LAnotte_app
 //
 //  Created by Claudia Recchia on 05/12/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 import AuthenticationServices
 
-struct ArchivioView: View {
+struct ArchiveView: View {
 	
 	@StateObject private var ordersViewModel = OrdersViewModel()
 	@State private var orders : [Order] = [Order]()
@@ -107,7 +107,7 @@ struct ArchivioView: View {
 												let keyExists = user.ratings![archived_order.business.business_name] != nil
 												if keyExists{
 													HStack{
-														var business_rating = user.ratings![archived_order.business.business_name]!
+														let business_rating = user.ratings![archived_order.business.business_name]!
 														
 														ForEach(0..<business_rating, id: \.self) { index in
 															Button {
@@ -267,6 +267,6 @@ struct ArchivioView: View {
 
 struct ArchivioView_Previews: PreviewProvider {
 	static var previews: some View {
-		ArchivioView()
+		ArchiveView()
 	}
 }

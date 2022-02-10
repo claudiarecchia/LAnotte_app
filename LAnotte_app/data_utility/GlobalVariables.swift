@@ -1,5 +1,5 @@
 //
-//  Global_variables.swift
+//  GlobalVariables.swift
 //  LAnotte_app
 //
 //  Created by Claudia Recchia on 05/12/21.

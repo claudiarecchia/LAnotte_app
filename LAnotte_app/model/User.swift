@@ -107,7 +107,7 @@ class User: Codable, Identifiable, ObservableObject {
 			newList.append(product)
 		}
 		
-		if let oldValue = self.favourite_products!.updateValue(newList, forKey: business.business_name) {
+		if self.favourite_products!.updateValue(newList, forKey: business.business_name) != nil {
 			// print("The old value of \(oldValue) was replaced with a new one.")
 		} else {
 			// print("No value was found in the dictionary for that key.")

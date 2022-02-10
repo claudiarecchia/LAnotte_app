@@ -41,8 +41,8 @@ struct HomeView: View {
 			.padding(.horizontal)
 			
 			TabView(selection: self.$index){
-				LocaliView().tag(0)
-				ProdottiView().tag(1)
+				BusinessesView().tag(0)
+				ProductsView().tag(1)
 			}.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 			
 			Spacer(minLength: 0)

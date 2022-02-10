@@ -1,5 +1,5 @@
 //
-//  LocaliView.swift
+//  BusinessesView.swift
 //  LAnotte_app
 //
 //  Created by Claudia Recchia on 05/12/21.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct LocaliView: View {
+struct BusinessesView: View {
 	
-	@StateObject private var localiViewModel = LocaliViewModel()
+	@StateObject private var localiViewModel = BusinessesViewModel()
 	@State private var searchString = ""
 	
 	var body: some View {
@@ -47,7 +47,7 @@ struct LocaliView: View {
 
 struct LocaliView_Previews: PreviewProvider {
 	static var previews: some View {
-		LocaliView()
+		BusinessesView()
 	}
 }
 

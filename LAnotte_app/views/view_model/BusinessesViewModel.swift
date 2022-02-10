@@ -1,5 +1,5 @@
 //
-//  LocaliViewModel.swift
+//  BusinessesViewModel.swift
 //  LAnotte_app
 //
 //  Created by Claudia Recchia on 06/12/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LocaliViewModel : ObservableObject {
+final class BusinessesViewModel : ObservableObject {
     
     @Published var businesses: [Business] = []
     @Published var isLoading = true
@@ -20,7 +20,7 @@ final class LocaliViewModel : ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = method
         // print(request)
-        let task =  try await URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return

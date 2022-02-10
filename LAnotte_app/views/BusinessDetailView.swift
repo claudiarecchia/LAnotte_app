@@ -11,7 +11,7 @@ struct BusinessDetailView: View {
 	
 	@EnvironmentObject var order: Order
 	@EnvironmentObject var user: User
-	@StateObject private var localiViewModel = LocaliViewModel()
+	@StateObject private var localiViewModel = BusinessesViewModel()
 	
 	@State var business: Business = Business.defaultBusiness
 	@Environment(\.colorScheme) var colorScheme

@@ -21,12 +21,12 @@ struct MainTabView: View {
 				Image(systemName: "house")
 				Text("Home")
 			}
-			PerMeView()
+			ForMeView()
 				.tabItem {
 					Image(systemName: "arrow.clockwise.heart")
 					Text("Per me")
 				}
-			ArchivioView()
+			ArchiveView()
 				.tabItem {
 					Image(systemName: "tray")
 					Text("Archivio")
